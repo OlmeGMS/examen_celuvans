@@ -13,14 +13,7 @@
       <div class="col-md-6 col-sm-4 clearfix hidden-xs">
         <app-rawlink></app-rawlink>
       </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="well">
-            <h1>November 04, 2015</h1>
-            <h3>Bienvenido al sitio <strong>{{identity.name}} {{identity.surname}}</strong></h3>
-          </div>
-        </div>
-      </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
@@ -105,15 +98,85 @@
             <em>- O -</em>
           </div>
 
-          <div class="form-group">
+          <!--<div class="form-group">
 
-            <button type="button" class="btn btn-default btn-lg btn-block btn-icon icon-left btn-blue">
+            <button  id="btn-registro" type="button" class="btn btn-default btn-lg btn-block btn-icon icon-left btn-blue" >
   						Registro
   						<i class="entypo-user"></i>
   					</button>
 
-          </div>
+          </div>-->
+          <div class="row">
+            <div class="col-md-12">
 
+              <div class="panel panel-primary" data-collapsed="0">
+                <div class="panel-heading" style="background: #555555;color: white;">
+                  <div class="panel-title">
+                    Registro
+                  </div>
+                  <div class="panel-options">
+                    <a href="#" data-rel="collapse"><i class="entypo-down-open" style=" color: white;"></i></a>
+                    <a href="#" data-rel="close"><i class="entypo-cancel" style=" color: white;"></i></a>
+                  </div>
+                  </div>
+                  <div class="panel-body" style="display: none;">
+                    <form role="form" class="form-horizontal form-groups-bordered">
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-user"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #name="ngModel" name="name" id="name" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.name" value="" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-user"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #surname="ngModel" name="surname" id="surname" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.surname" value="" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-vcard"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #cedula="ngModel" name="cedula" id="cedula" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.cedula" value="" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-feather"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #email="ngModel" name="email" id="email" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.email" value="" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-suitcase"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #company="ngModel" name="company" id="company" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.company" value="" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+        								<div class="col-sm-offset-3 col-sm-5">
+        									<button type="submit" class="btn btn-default">Registrarse</button>
+        								</div>
+        							</div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           <!--
 
   				You can also use other social network buttons
@@ -147,6 +210,7 @@
           <a href="javascript:void(0)">ToS</a> - <a href="javascript:void(0)">Política de privacidad</a>
 
         </div>
+
 
       </div>
 

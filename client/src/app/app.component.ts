@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { GLOBAL } from './services/global';
 import { UserService } from './services/user.service';
 import { User } from './models/user';
 
@@ -14,11 +17,16 @@ export class AppComponent implements OnInit {
   public identity;
   public token;
   public errorMessage;
+  public url: string;
+  public loadd;
 
   constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
     private _userService: UserService
   ) {
     this.user = new User('', '', '', '', '', 'ROLE_USER', '', '');
+    this.url = GLOBAL.url;
   }
 
   ngOnInit() {
@@ -54,10 +62,7 @@ export class AppComponent implements OnInit {
               } else {
                 // Crear elemento en el localstorage para tener token disponible
                 localStorage.setItem('token', token);
-
-                console.log(token);
-                console.log(identity);
-
+                this.user = new User('', '', '', '', '', 'ROLE_USER', '', '');
 
               }
 
@@ -86,12 +91,17 @@ export class AppComponent implements OnInit {
     );
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
     localStorage.clear();
     this.identity = null;
     this.token = null;
+    this._router.navigate(['/']);
+  }
+
+  load() {
+    location.reload()
   }
 
 }
