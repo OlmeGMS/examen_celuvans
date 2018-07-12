@@ -121,11 +121,11 @@ body #chat .chat-conversation .chat-textarea textarea {
 body #chat .chat-group > a:before {
   border-color: transparent transparent transparent #002a5a;
 }
-body.login-page .login-form .form-group .input-group {
-  border-color: #063d7d;
+body.form-group .input-group {
+  /*border-color: #063d7d;*/
 }
 body.login-page {
-  background: #002f65;
+  /*background: #002f65;*/
   color: rgba(255, 255, 255, 0.5);
 }
 body.login-page .login-form .form-group .input-group .form-control::-webkit-input-placeholder {
@@ -140,21 +140,21 @@ body.login-page .login-form .form-group .input-group .form-control::-moz-placeho
 body.login-page .login-form .form-group .input-group .form-control:-ms-input-placeholder {
   color: #bfccdb;
 }
-body.login-page .login-form .form-group .input-group {
+body.form-group .input-group {
   background: #003471;
   border-color: #063d7d;
 }
-body.login-page .login-form .form-group .input-group.focused {
+body.form-group .input-group.focused {
   border-color: #074995;
 }
-body.login-page .login-form .form-group .input-group .input-group-addon:after {
+body.form-group .input-group .input-group-addon:after {
   background: #063d7d;
 }
-body.login-page .login-form .form-group .btn-login {
+body.form-group .btn-login {
   background: #002f65;
   border-color: #063d7d;
 }
-body.login-page .login-form .form-group .btn-login:hover {
+body.form-group .btn-login:hover {
   background: #003471;
 }
 body .login-container .login-header {
@@ -188,6 +188,12 @@ body .btn-primary {
   background: #003471;
   border-color: #003471;
 }
+
+body .btn-primary .btn-login{
+  background: #333;
+  border-color: #3333;
+}
+
 body .panel-invert {
   background: #003471;
 }
