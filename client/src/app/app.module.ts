@@ -12,6 +12,14 @@ import { RegisterComponent } from './register/register.component';
 
 import { HomeComponent } from './components/home.component';
 import { UserEditComponent } from './components/user-edit.component';
+import { QuestionTableComponent } from './components/question-table.component';
+import { QuestionAddComponent } from './components/question-add.component';
+import { QuestionEditComponent } from './components/question-edit.component';
+import { AnswerAddComponent } from './components/answer-add.component';
+import { AnswerEditComponent } from './components/answer-edit.component';
+import { AnswerTableComponent } from './components/answer-table.component';
+import { ExamAddComponent } from './components/exam-add.component';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +29,14 @@ import { UserEditComponent } from './components/user-edit.component';
     RawlinkComponent,
     RegisterComponent,
     HomeComponent,
-    UserEditComponent
+    UserEditComponent,
+    QuestionTableComponent,
+    QuestionAddComponent,
+    QuestionEditComponent,
+    AnswerAddComponent,
+    AnswerEditComponent,
+    AnswerTableComponent,
+    ExamAddComponent
   ],
   imports: [
     BrowserModule,

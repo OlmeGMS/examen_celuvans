@@ -14,9 +14,11 @@ import { User } from './models/user';
 export class AppComponent implements OnInit {
   public title = 'Examen Celuvans';
   public user: User;
+  public user_register: User;
   public identity;
   public token;
   public errorMessage;
+  public alertRegister;
   public url: string;
   public loadd;
 
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
     private _userService: UserService
   ) {
     this.user = new User('', '', '', '', '', 'ROLE_USER', '', '');
+    this.user_register = new User('', '', '', '', '', 'ROLE_USER', '', '');
     this.url = GLOBAL.url;
   }
 
@@ -89,6 +92,37 @@ export class AppComponent implements OnInit {
         }
       }
     );
+  }
+
+  onSubmitRegister(){
+    console.log(this.user_register);
+
+    this._userService.register(this.user_register).subscribe(
+      response => {
+        let user = response.user;
+        this.user_register = user;
+
+        if(!user._id){
+          this.alertRegister = 'ERROR al registrase';
+        }else{
+          this.alertRegister = 'El registrose ha realizado correctamente, identificate con '+this.user_register.email;
+          this.user_register = new User('', '', '', '', '', 'ROLE_USER', '', '');
+        }
+
+
+      },
+      error => {
+        var errorMessage = <any>error;
+
+        if(errorMessage != null){
+          var body = JSON.parse(error._body);
+          this.alertRegister = body.message;
+
+          console.log(error);
+        }
+      }
+    );
+
   }
 
   logout() {

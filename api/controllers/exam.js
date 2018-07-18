@@ -73,6 +73,7 @@ function saveExam(req, res) {
   var exam = new Exam();
 
   var params = req.body;
+  exam.name = params.name;
   exam.user = params.user;
   exam.question = params.question;
   exam.answer = params.answer;

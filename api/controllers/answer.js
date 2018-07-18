@@ -1,5 +1,4 @@
 'use strict'
-
 var path = require('path');
 var fs = require('fs');
 var mongoosePaginate = require('mongoose-pagination');
@@ -45,6 +44,25 @@ function getAnswers(req, res){
       }
     }
   });
+}
+
+function getListAnswers(req, res){
+
+  //Sacar todas las respuestas de la BD
+  var find = Answer.find({}).sort('answer');
+
+  find.populate({path: 'question'}).exec((err, answers) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!answers) {
+        res.status(404).send({message: 'No hay respuestas'});
+      }else {
+        res.status(200).send({answers});
+      }
+    }
+  });
+
 }
 
 function saveAnswer(req, res){
@@ -114,6 +132,7 @@ function deleteAnswer(req, res){
 module.exports = {
   getAnswer,
   getAnswers,
+  getListAnswers,
   saveAnswer,
   updateAnswer,
   deleteAnswer

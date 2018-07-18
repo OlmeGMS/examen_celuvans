@@ -3209,8 +3209,10 @@ input.typeahead {
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 150px;
-  height: 150px;
+  /*width: 150px; */
+  /*height: 150px; */
+  width: 350px;
+  height: 200px;
   outline: none;
   border: 1px solid #ebebeb;
   overflow: auto;
@@ -4011,6 +4013,10 @@ hr + .mail-env {
   }
   .mail-env .mail-body .mail-compose .compose-message-editor textarea {
     height: 300px;
+  }
+  .ms-container .ms-list {
+    width: 150px;
+    height: 150px;
   }
 }
 @media (max-width: 768px) {

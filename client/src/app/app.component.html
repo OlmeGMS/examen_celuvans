@@ -1,5 +1,5 @@
 <div *ngIf="identity" class="page-container">
-<script type="text/javascript" src="asset/js/r.js"></script>
+  <script type="text/javascript" src="asset/js/r.js"></script>
   <div class="sidebar-menu">
     <app-sidebar></app-sidebar>
   </div>
@@ -106,77 +106,6 @@
   					</button>
 
           </div>-->
-          <div class="row">
-            <div class="col-md-12">
-
-              <div class="panel panel-primary" data-collapsed="0">
-                <div class="panel-heading" style="background: #555555;color: white;">
-                  <div class="panel-title">
-                    Registro
-                  </div>
-                  <div class="panel-options">
-                    <a href="#" data-rel="collapse"><i class="entypo-down-open" style=" color: white;"></i></a>
-                    <a href="#" data-rel="close"><i class="entypo-cancel" style=" color: white;"></i></a>
-                  </div>
-                  </div>
-                  <div class="panel-body" style="display: none;">
-                    <form role="form" class="form-horizontal form-groups-bordered">
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                            <i class="entypo-user"></i>
-                          </div>
-
-                          <input type="text" class="form-control" #name="ngModel" name="name" id="name" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.name" value="" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                            <i class="entypo-user"></i>
-                          </div>
-
-                          <input type="text" class="form-control" #surname="ngModel" name="surname" id="surname" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.surname" value="" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                            <i class="entypo-vcard"></i>
-                          </div>
-
-                          <input type="text" class="form-control" #cedula="ngModel" name="cedula" id="cedula" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.cedula" value="" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                            <i class="entypo-feather"></i>
-                          </div>
-
-                          <input type="text" class="form-control" #email="ngModel" name="email" id="email" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.email" value="" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <div class="input-group-addon">
-                            <i class="entypo-suitcase"></i>
-                          </div>
-
-                          <input type="text" class="form-control" #company="ngModel" name="company" id="company" placeholder="Full Name" autocomplete="off" [(ngModel)]="user.company" value="" />
-                        </div>
-                      </div>
-                      <div class="form-group">
-        								<div class="col-sm-offset-3 col-sm-5">
-        									<button type="submit" class="btn btn-default">Registrarse</button>
-        								</div>
-        							</div>
-
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           <!--
 
   				You can also use other social network buttons
@@ -200,7 +129,127 @@
 
         </form>
 
+        <div class="row">
+          <div class="col-md-12">
 
+            <div class="panel panel-primary panel-collapse" data-collapsed="0">
+              <div class="panel-heading" style="background: #373e4a;color: white;">
+                <div class="panel-title">
+                  Registro
+                </div>
+                <div class="panel-options">
+                  <a href="#" data-rel="collapse"><i class="entypo-down-open" style=" color: white;"></i></a>
+                  <a href="#" data-rel="close"><i class="entypo-cancel" style=" color: white;"></i></a>
+                </div>
+              </div>
+              <div *ngIf="alertRegister">
+                <div class="alert alert-info">
+                  {{alertRegister}}
+                </div>
+              </div>
+              <div class="panel-body" style="display: none; background: #434c5a;">
+                <form #registerForm="ngForm" role="form" class="form-horizontal form-groups-bordered" id="form_register" (ngSubmit)="onSubmitRegister()">
+                  <div class="form-register-success">
+                    <i class="entypo-check"></i>
+                    <h3>Tu registro ha sido exitoso!.</h3>
+                    <!--<p>We have emailed you the confirmation link for your account.</p>-->
+                  </div>
+
+                  <div class="form-steps">
+
+                    <div class="step current" id="step-1">
+
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-user"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #name="ngModel" name="name" id="name" [(ngModel)]="user_register.name" placeholder="Digite su nombre" autocomplete="off" required/>
+                          <span *ngIf="!name.valid && name.touched">El nombre  es obligatorio</span>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-user"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #surname="ngModel" name="surname" id="surname" [(ngModel)]="user_register.surname" placeholder="Digite su apellido" autocomplete="off" required/>
+                          <span *ngIf="!surname.valid && surname.touched">El apellido es obligatorio</span>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-phone"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #cedula="ngModel" name="cedula" id="cedula" [(ngModel)]="user_register.cedula" placeholder="Nº de cédula" data-mask="" autocomplete="off" required/>
+                          <span *ngIf="!cedula.valid && cedula.touched">El número de documentos es obligatorio</span>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-mail"></i>
+                          </div>
+
+                          <input type="text" class="form-control" #email="ngModel" name="email" id="email" [(ngModel)]="user_register.email" placeholder="E-mail" autocomplete="off" required/>
+                          <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-lock"></i>
+                          </div>
+
+                          <input type="password" class="form-control" #password="ngModel" name="password" id="password" [(ngModel)]="user_register.password" placeholder="Digite su Password" autocomplete="off" required/>
+                          <span *ngIf="!password.valid && password.touched">El password es obligatorio</span>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="entypo-briefcase"></i>
+                          </div>
+                          <div class="col-sm-12">
+                            <select class="form-control" #company="ngModel" name="company" id="company" [(ngModel)]="user_register.company" required>
+                                <option value="" disabled>Selecione la empresa</option>
+                                <option value="Celuvans">Celuvans</option>
+                                <option value="Taxisya">Taxisya</option>
+                                <option value="Real Transportadora">Real Transportadora</option>
+                              </select>
+                            <span *ngIf="!company.valid && company.touched">La empresa es obligatoria</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block btn-login">
+                            <i class="entypo-right-open-mini"></i>
+                            Completar registro
+                          </button>
+                      </div>
+
+                      <div class="form-group">
+                        Paso 2 de 2
+                      </div>
+
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="login-bottom-links">
 
           <a href="javascript:void(0)" class="link">olvido su contraseña?</a>

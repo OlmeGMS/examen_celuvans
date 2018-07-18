@@ -8,6 +8,7 @@ var md_auth = require('../middlewares/authenticated');
 
 api.get('/answer/:id', md_auth.ensureAuth, AnswerController.getAnswer);
 api.get('/answers/:question?', md_auth.ensureAuth, AnswerController.getAnswers);
+api.get('/answers-list/', md_auth.ensureAuth, AnswerController.getListAnswers);
 api.post('/answer', md_auth.ensureAuth, AnswerController.saveAnswer);
 api.put('/answer/:id', md_auth.ensureAuth, AnswerController.updateAnswer);
 api.delete('/answer/:id', md_auth.ensureAuth, AnswerController.deleteAnswer);

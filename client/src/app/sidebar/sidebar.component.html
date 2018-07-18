@@ -5,7 +5,7 @@
 
       <!-- logo -->
       <div class="logo">
-        <a href="index.html">
+        <a href="" [routerLink]="['/']">
           <img src="assets/images/celuvans-logo.png" width="120" alt=""/>
         </a>
       </div>
@@ -36,7 +36,7 @@
           <img src="assets/images/thumb-1@2x.png" width="55" alt="" class="img-circle" style=" background: white;"/>
 
           <span>Bienvenido,</span>
-          <strong>{{identity.name}} {{identity.surname}}</strong>
+          <strong id="identity_name">{{identity.name}} {{identity.surname}}</strong>
         </a>
       </div>
 
@@ -66,7 +66,7 @@
     <ul id="main-menu" class="main-menu">
       <!-- add class "multiple-expanded" to allow multiple submenus to open -->
       <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-      <li class="opened active has-sub">
+      <li class="opened active has-sub" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
         <a href="index.html">
           <i class="entypo-gauge"></i>
           <span class="title">Gestionar Examen</span>
@@ -78,12 +78,12 @@
             </a>
             <ul>
               <li>
-                <a href="#">
+                <a [routerLink]="['/preguntas']">
                   <span class="title">Lista Preguntas</span>
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a [routerLink]="['/crear-pregunta']">
                   <span class="title">Agregar Pregunta</span>
                 </a>
               </li>
@@ -95,7 +95,7 @@
             </a>
             <ul>
               <li>
-                <a href="#">
+                <a [routerLink]="['/respuestas']">
                   <span class="title">Lista Respuestas</span>
                 </a>
               </li>
@@ -117,7 +117,7 @@
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a [routerLink]="['/crear-examen']">
                   <span class="title">Agregar Examen</span>
                 </a>
               </li>
@@ -125,13 +125,13 @@
           </li>
         </ul>
       </li>
-      <li>
+      <li *ngIf="identity && identity.role == 'ROLE_ADMIN'">
         <a href="index.html" target="_blank">
           <i class="entypo-monitor"></i>
           <span class="title">Consulta Examen</span>
         </a>
       </li>
-      <li class="has-sub">
+      <li class="has-sub" *ngIf="identity && identity.role == 'ROLE_USER'">
         <a href="#">
           <i class="entypo-layout"></i>
           <span class="title">Examenes</span>
