@@ -82,7 +82,7 @@ export class ExamEditComponent implements OnInit {
           if(!response.exam){
             this.alertMessage = "ERROR en el servidor";
           }else{
-            this.alertMessage = '¡La respuesta fue actualizada correctamente!';
+            this.alertMessage = '¡El examen fue actualizado correctamente!';
             this.exam = response.exam;
           }
 
