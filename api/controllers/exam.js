@@ -69,15 +69,30 @@ function getExams(req, res){
   });
 }
 
+function getListExams(req, res){
+  Exam.find({}, function(err, exams){
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!exams) {
+        res.status(404).send({message: 'No hay preguntas !!'});
+      }else {
+        return res.status(200).send({
+          exams: exams
+        });
+      }
+    }
+  });
+}
+
 function saveExam(req, res) {
   var exam = new Exam();
 
   var params = req.body;
   exam.name = params.name;
   exam.user = params.user;
-  exam.question = params.question;
-  exam.answer = params.answer;
-  exam.qualification = params.qualification;
+  exam.cant = params.cant;
+  exam.intent = params.intent;
 
   exam.save((err, examStored) => {
     if (err) {
@@ -133,6 +148,7 @@ function deleteExam(req, res){
 module.exports = {
   getExam,
   getExams,
+  getListExams,
   saveExam,
   updateExam,
   deleteExam

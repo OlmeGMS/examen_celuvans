@@ -19,6 +19,8 @@ import { AnswerTableComponent } from './components/answer-table.component';
 
 //import exam
 import { ExamAddComponent } from './components/exam-add.component';
+import { ExamTableComponent } from './components/exam-table.component';
+import { ExamEditComponent } from './components/exam-edit.component';
 
 
 
@@ -32,7 +34,9 @@ const appRoutes: Routes = [
   {path: 'crear-respuesta/:question', component: AnswerAddComponent},
   {path: 'editar-respuesta/:id', component: AnswerEditComponent},
   {path: 'respuestas', component: AnswerTableComponent},
-  {path: 'crear-examen', component: ExamAddComponent},
+  {path: 'crear-examen/:user', component: ExamAddComponent},
+  {path: 'examenes', component: ExamTableComponent},
+  {path: 'editar-examen/:id', component: ExamEditComponent},
   {path: 'registro', component: RegisterComponent},
   {path: '**', component: HomeComponent}
 ];

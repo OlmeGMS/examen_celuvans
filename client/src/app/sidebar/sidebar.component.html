@@ -112,12 +112,12 @@
             </a>
             <ul>
               <li>
-                <a href="#">
+                <a [routerLink]="['/examenes']">
                   <span class="title">Lista Examen</span>
                 </a>
               </li>
               <li>
-                <a [routerLink]="['/crear-examen']">
+                <a [routerLink]="['/crear-examen', this.identity._id]">
                   <span class="title">Agregar Examen</span>
                 </a>
               </li>
