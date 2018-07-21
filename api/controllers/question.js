@@ -69,6 +69,7 @@ function saveQuestion(req, res){
 
   var params = req.body;
   question.question = params.question;
+  question.theme = params.theme;
 
   question.save((err, questionStored) => {
     if(err){

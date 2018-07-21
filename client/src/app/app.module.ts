@@ -12,6 +12,8 @@ import { RegisterComponent } from './register/register.component';
 
 import { HomeComponent } from './components/home.component';
 import { UserEditComponent } from './components/user-edit.component';
+import { ThemeAddComponent } from './components/theme-add.component';
+import { ThemeEditComponent } from './components/theme-edit.component';
 import { QuestionTableComponent } from './components/question-table.component';
 import { QuestionAddComponent } from './components/question-add.component';
 import { QuestionEditComponent } from './components/question-edit.component';
@@ -32,6 +34,8 @@ import { ExamEditComponent } from './components/exam-edit.component';
     RegisterComponent,
     HomeComponent,
     UserEditComponent,
+    ThemeAddComponent,
+    ThemeEditComponent,
     QuestionTableComponent,
     QuestionAddComponent,
     QuestionEditComponent,

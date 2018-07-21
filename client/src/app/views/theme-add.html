@@ -5,7 +5,7 @@
     </li>
     <li class="active">
 
-      <strong>Añadir Pregustas</strong>
+      <strong>{{titulo}}</strong>
     </li>
   </ol>
 
@@ -34,29 +34,18 @@
           </div>
         </div>
         <div class="panel-body">
-          <form role="form" #formQuestion="ngForm" class="form-horizontal form-groups-bordered" (ngSubmit)="onSubmit()">
+          <form role="form" #formTheme="ngForm" class="form-horizontal form-groups-bordered" (ngSubmit)="onSubmit()">
             <div class="form-group">
-              <label for="pregunta" class="col-sm-3 control-label" style="color:#333;">Pregunta</label>
+              <label for="pregunta" class="col-sm-3 control-label" style="color:#333;">Nombre del tema</label>
 
               <div class="col-sm-5">
-                <input type="text" class="form-control" #pregunta="ngModel" name="question" id="question" [(ngModel)]="question.question" placeholder="Digite el enunciado de la pregunta" value="" required />
-                <span *ngIf="!question.valid && question.touched"><p style="color:#b61922;">La pregunta es obligatoria.</p></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="theme" class="col-sm-3 control-label" style="color:#333;">Pregunta</label>
-
-              <div class="col-sm-5">
-                <select class="form-control" #theme="ngModel" name="theme" id="theme" [(ngModel)]="question.theme" required>
-                    <option value="" disabled>Selecione el tema</option>
-                    
-                </select>
-                <span *ngIf="!theme.valid && theme.touched">La pregunta es obligatoria</span>
+                <input type="text" class="form-control" #tema="ngModel" name="theme" id="theme" [(ngModel)]="theme.name" placeholder="Digite el nombre del tema" value="" required />
+                <span *ngIf="!theme.valid && theme.touched"><p style="color:#b61922;">El nombre del tema es obligatorio.</p></span>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-offset-3 col-sm-5">
-                <button type="submit" class="btn btn-default" [disabled]="!formQuestion.form.valid">{{titulo}}</button>
+                <button type="submit" class="btn btn-default" [disabled]="!formTheme.form.valid">{{titulo}}</button>
               </div>
             </div>
           </form>

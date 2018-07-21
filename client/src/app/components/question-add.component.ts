@@ -4,7 +4,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL } from '../services/global';
 import { UserService } from '../services/user.service';
 import { QuestionService } from '../services/question.service';
+import { ThemeService } from '../services/theme.service';
 import { Question } from '../models/question';
+import { Theme } from '../models/theme';
 import { AppComponent } from '../app.component';
 
 @Component({
@@ -17,6 +19,7 @@ export class QuestionAddComponent implements OnInit{
 
   public titulo: string;
   public question: Question;
+  public themes: Theme[];
   public identity;
   public token;
   public url: string;
@@ -27,17 +30,44 @@ export class QuestionAddComponent implements OnInit{
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
-    private _questionService: QuestionService
+    private _questionService: QuestionService,
+    private _themeService: ThemeService
   ){
     this.titulo = 'Añadir nueva pregunta';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
-    this.question = new Question('');
+    this.question = new Question('','');
   }
 
   ngOnInit(){
      console.log('cargando el componente de question-add.component.ts');
+     this.getThemeList();
+
+  }
+
+  getThemeList(){
+    this._themeService.getThemeList(this.token).subscribe(
+      response => {
+        if (!response.themes) {
+          this._router.navigate(['/']);
+        } else {
+          //this.alertMessage = '¡La pregunta fue creada correctamente!';
+          this.themes = response.themes;
+          console.log(this.themes);
+        }
+
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          //this.alertMessage = body.message;
+          console.log(error);
+        }
+
+      }
+    );
 
   }
 
@@ -64,7 +94,7 @@ export class QuestionAddComponent implements OnInit{
 
       }
     );
-    
+
   }
 
 }

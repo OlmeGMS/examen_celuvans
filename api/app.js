@@ -7,6 +7,7 @@ var app = express();
 
 // cargar rutas
 var user_routes = require('./routes/user');
+var theme_routes = require('./routes/theme');
 var question_routes = require('./routes/question');
 var answer_routes = require('./routes/answer');
 var exam_routes = require('./routes/exam');
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 // rutas base
 app.use('/api', user_routes);
+app.use('/api', theme_routes);
 app.use('/api', question_routes);
 app.use('/api', answer_routes);
 app.use('/api', exam_routes);

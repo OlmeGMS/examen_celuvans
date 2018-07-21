@@ -4,14 +4,16 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL } from '../services/global';
 import { UserService } from '../services/user.service';
 import { QuestionService } from '../services/question.service';
+import { ThemeService } from '../services/theme.service';
 import { UploadService } from '../services/upload.service';
 import { Question } from '../models/question';
+import { Theme }  from '../models/theme';
 import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'question-edit',
   templateUrl: '../views/question-add.html',
-  providers: [UserService, QuestionService]
+  providers: [UserService, QuestionService, ThemeService]
 })
 
 export class QuestionEditComponent implements OnInit {
@@ -35,7 +37,7 @@ export class QuestionEditComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
-    this.question = new Question('');
+    this.question = new Question('','');
     this.is_edit = true;
   }
 
