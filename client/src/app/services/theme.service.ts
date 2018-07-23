@@ -47,4 +47,28 @@ export class ThemeService {
 
   }
 
+  editTheme(token, id:string, theme: Theme){
+    let params = JSON.stringify(theme);
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization': token
+    });
+
+    return this._http.put(this.url+'theme/'+id, params, {headers: headers})
+                     .map(res => res.json());
+  }
+
+  deleteTheme(token, id: string){
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization':token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+    return this._http.delete(this.url+'theme/'+id, options)
+                     .map(res => res.json());
+  }
+
+
+
 }

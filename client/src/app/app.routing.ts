@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 //import theme
 import { ThemeAddComponent } from './components/theme-add.component';
 import { ThemeEditComponent } from './components/theme-edit.component';
+import { ThemeTableComponent } from './components/theme-table.component';
 
 //import question
 import { QuestionTableComponent } from './components/question-table.component';
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
   {path: 'mis-datos', component: UserEditComponent},
   {path: 'crear-tema', component: ThemeAddComponent},
   {path: 'editar-tema/:id', component: ThemeEditComponent},
+  {path: 'temas', component: ThemeTableComponent},
   {path: 'preguntas', component: QuestionTableComponent},
   {path: 'crear-pregunta', component: QuestionAddComponent},
   {path: 'editar-pregunta/:id', component: QuestionEditComponent},
