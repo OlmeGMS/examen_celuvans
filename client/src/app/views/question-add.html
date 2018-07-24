@@ -49,7 +49,7 @@
               <div class="col-sm-5">
                 <select class="form-control" #theme="ngModel" name="theme" id="theme" [(ngModel)]="question.theme" required>
                     <option value="" disabled>Selecione el tema</option>
-                    
+                    <option *ngFor="let theme of themes" value="{{theme._id}}">{{theme.name}}</option>
                 </select>
                 <span *ngIf="!theme.valid && theme.touched">La pregunta es obligatoria</span>
               </div>

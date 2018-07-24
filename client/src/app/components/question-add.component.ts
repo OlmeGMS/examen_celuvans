@@ -12,7 +12,7 @@ import { AppComponent } from '../app.component';
 @Component({
   selector: 'question-add',
   templateUrl: '../views/question-add.html',
-  providers: [UserService, QuestionService]
+  providers: [UserService, QuestionService, ThemeService]
 })
 
 export class QuestionAddComponent implements OnInit{
@@ -42,12 +42,14 @@ export class QuestionAddComponent implements OnInit{
 
   ngOnInit(){
      console.log('cargando el componente de question-add.component.ts');
-     this.getThemeList();
+     this.getListThemes();
 
   }
 
-  getThemeList(){
+  getListThemes(){
+
     this._themeService.getThemeList(this.token).subscribe(
+
       response => {
         if (!response.themes) {
           this._router.navigate(['/']);
