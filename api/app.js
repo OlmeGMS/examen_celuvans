@@ -11,6 +11,7 @@ var theme_routes = require('./routes/theme');
 var question_routes = require('./routes/question');
 var answer_routes = require('./routes/answer');
 var exam_routes = require('./routes/exam');
+var questionnaire_routes = require('./routes/questionnaire');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -31,5 +32,6 @@ app.use('/api', theme_routes);
 app.use('/api', question_routes);
 app.use('/api', answer_routes);
 app.use('/api', exam_routes);
+app.use('/api', questionnaire_routes);
 
 module.exports = app;
