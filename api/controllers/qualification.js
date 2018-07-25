@@ -46,5 +46,6 @@ function getQualifications(req, res){
       }
     }
   });
+  
 
 }
