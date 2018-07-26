@@ -46,6 +46,88 @@ function getQualifications(req, res){
       }
     }
   });
-  
+
 
 }
+
+function getListQualifications(req, res){
+  var find = Qualification.find({}).sort('qualification');
+
+  find.populate({path: 'qualification'}).exec((err, qualifications) => {
+    if (err) {
+      res.status(500).send({message:' Error en la petición'});
+    }else {
+      if (!qualifications) {
+        res.status(404).send({message: 'No hay calificaciones'});
+      }else {
+        res.status(200).send({qualifications})
+      }
+    }
+  });
+}
+
+function saveQualification(req, res){
+  var qualification = new Qualification();
+
+  var params = req.body;
+
+  qualification.exam = params.exam;
+  qualification.user = params.user;
+  qualification.score = params.score;
+  qualification.intent = params.intent;
+
+  qualification.save((err, qualificationStored) => {
+    if (err) {
+      res.status(500).send({message: 'Error al guardar la calificación'});
+    }else {
+      if (!qualificationStored) {
+        res.status(404).send({message: 'No se pudo guardar la calificación'});
+      }else {
+        res.status(200).send({qualification: qualificationStored});
+      }
+    }
+  });
+
+}
+
+function updateQualification(req, res){
+  var qualificationId = req.params.id;
+  var update = req.body;
+
+  Qualification.findByIdAndUpdate(qualificationId, update, (err, qualificationUpdate) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!qualificationUpdate) {
+        res.status(404).send({message: 'No se ha actualizado la calificación'});
+      }else {
+        res.status(200).send({qualification: qualificationUpdate});
+      }
+    }
+  });
+}
+
+function deleteQualification(req, res){
+  var qualificationId = req.params.id;
+
+  Qualification.findByIdAndRemove(qualificationId, (err, qualificationRemove) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!qualification) {
+        res.status(404).send({message: 'La calificacion no ha sido elimando'});
+      }else {
+        res.status(200).send({qualification: qualificationRemove});
+      }
+    }
+  });
+}
+
+module.exports = {
+  getQualification,
+  getQualifications,
+  getListQualifications,
+  saveQualification,
+  updateQualification,
+  deleteQualification
+};

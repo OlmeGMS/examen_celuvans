@@ -140,6 +140,24 @@
               </li>
             </ul>
           </li>
+          <li class="has-sub">
+            <a href="#">
+              <span class="title">Cuestionarios</span>
+            </a>
+            <ul>
+              <li>
+                <a [routerLink]="['/examenes']">
+                  <span class="title">Lista Cuestionarios</span>
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/crear-cuestionario']">
+                  <span class="title">Agregar Cuestionario</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
         </ul>
       </li>
       <li *ngIf="identity && identity.role == 'ROLE_ADMIN'">

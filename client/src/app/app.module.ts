@@ -24,6 +24,7 @@ import { AnswerTableComponent } from './components/answer-table.component';
 import { ExamAddComponent } from './components/exam-add.component';
 import { ExamTableComponent } from './components/exam-table.component';
 import { ExamEditComponent } from './components/exam-edit.component';
+import { QuestionnaireAddComponent } from './components/questionnaire-add.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ExamEditComponent } from './components/exam-edit.component';
     AnswerTableComponent,
     ExamAddComponent,
     ExamTableComponent,
-    ExamEditComponent
+    ExamEditComponent,
+    QuestionnaireAddComponent
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,17 @@ export class QuestionService{
                      .map(res => res.json());
   }
 
+  getQuestionsTheme(token, idTheme: string){
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization': token
+    });
+
+    let options = new RequestOptions({ headers : headers });
+    return this._http.get(this.url+'questions-theme/'+idTheme, options)
+                     .map(res => res.json());
+  }
+
   getListQuestions(token){
     let headers = new Headers({
       'Content-Type':'application/json',

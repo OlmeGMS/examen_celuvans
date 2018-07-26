@@ -23,6 +23,28 @@ function getQuestion(req, res){
     });
 }
 
+function getQuestionsForTheme(req, res){
+  var themeId = req.params.question;
+  if (!themeId) {
+    var find = Question.find({}).sort('question');
+  }else{
+    var find = Question.find({theme: themeId}).sort('theme');
+  }
+
+
+  find.populate({path: 'theme'}).exec((err, questions) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!questions) {
+        res.status(404).send({message: 'No hay preguntas'});
+      }else {
+        res.status(200).send({questions});
+      }
+    }
+  });
+}
+
 function getQuestions(req, res){
   if (req.params.page) {
     var page = req.params.page;
@@ -142,6 +164,7 @@ function deleteQuestion(req, res){
 module.exports = {
   getQuestion,
   getQuestions,
+  getQuestionsForTheme,
   getListQuestions,
   saveQuestion,
   updateQuestion,

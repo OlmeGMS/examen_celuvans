@@ -27,6 +27,9 @@ import { ExamAddComponent } from './components/exam-add.component';
 import { ExamTableComponent } from './components/exam-table.component';
 import { ExamEditComponent } from './components/exam-edit.component';
 
+//import questionnaire
+import { QuestionnaireAddComponent } from './components/questionnaire-add.component';
+
 
 
 
@@ -45,6 +48,7 @@ const appRoutes: Routes = [
   {path: 'crear-examen/:user', component: ExamAddComponent},
   {path: 'examenes', component: ExamTableComponent},
   {path: 'editar-examen/:id', component: ExamEditComponent},
+  {path: 'crear-cuestionario', component: QuestionnaireAddComponent},
   {path: 'registro', component: RegisterComponent},
   {path: '**', component: HomeComponent}
 ];

@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var QualificationSchema = Schema({
-  var exam: { type: Schema.ObjectId, ref: 'Exam'},
-  var user: { type: Schema.ObjectId, ref: 'User'},
-  var score: String,
-  var intent: String
+  exam: { type: Schema.ObjectId, ref: 'Exam'},
+  user: { type: Schema.ObjectId, ref: 'User'},
+  score: String,
+  intent: String
 });
