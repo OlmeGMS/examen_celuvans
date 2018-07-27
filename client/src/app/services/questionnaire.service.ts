@@ -14,6 +14,17 @@ export class QuestionnaireService{
     this.url = GLOBAL.url;
   }
 
+  getQuestionnaire(token, id:string){
+    let headers = new Headers({
+      'Content-Type':'application/json',
+      'Authorization': token
+    });
+
+    let options = new RequestOptions({ headers: headers });
+    return this._http.get(this.url+'questionnaire/'+id, options)
+                     .map(res => res.json());
+  }
+
   getQuestionnaires(token, questionnaireId = null){
     let headers = new Headers({
       'Content-Type':'application/json',

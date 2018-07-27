@@ -25,6 +25,8 @@ import { ExamAddComponent } from './components/exam-add.component';
 import { ExamTableComponent } from './components/exam-table.component';
 import { ExamEditComponent } from './components/exam-edit.component';
 import { QuestionnaireAddComponent } from './components/questionnaire-add.component';
+import { QuestionnaireTableComponent } from './components/questionnaire-table.component';
+import { QuestionnaireDetailComponent } from './components/questionnaire-details.component';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { QuestionnaireAddComponent } from './components/questionnaire-add.compon
     ExamAddComponent,
     ExamTableComponent,
     ExamEditComponent,
-    QuestionnaireAddComponent
+    QuestionnaireAddComponent,
+    QuestionnaireTableComponent,
+    QuestionnaireDetailComponent
   ],
   imports: [
     BrowserModule,

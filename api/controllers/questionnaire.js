@@ -10,7 +10,7 @@ var Questionnaire = require('../models/questionnaire');
 function getQuestionnaire(req, res){
   var questionnaireId = req.params.id;
 
-  Questionnaire.findById(questionanaireId).populate({ path: 'questionnaire'}).exec((err, questionnaire) => {
+  Questionnaire.findById(questionnaireId).populate({ path: 'questionnaire'}).populate({path: 'question'}).populate({path: 'exam'}).exec((err, questionnaire) => {
     if (err) {
       res.status(500).send({message: 'Error en la petición'});
     }else {
