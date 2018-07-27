@@ -64,7 +64,7 @@ function getListQuestionnaires(req, res){
 }
 
 function saveQuestionnaire(req, res) {
-  var questionaire = new Questionnaire();
+  var questionnaire = new Questionnaire();
 
   var params = req.body;
    questionnaire.exam = params.exam;
@@ -74,7 +74,7 @@ function saveQuestionnaire(req, res) {
      if(err){
        res.status(500).send({message: 'Error al guardar el cuestionario'});
      }else{
-       if (!questionanaireStored) {
+       if (!questionnaireStored) {
          res.status(404).send({message: 'No se pudo guardar el cuestionario'});
        }else {
          res.status(200).send({questionnaire: questionnaireStored});

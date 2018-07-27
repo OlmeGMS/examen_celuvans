@@ -31,6 +31,7 @@ export class QuestionnaireAddComponent implements OnInit {
   public url: string;
   public alertMessage;
   public id_exma = null;
+  public preguntas = [];
 
   constructor(
     private _route: ActivatedRoute,
@@ -39,7 +40,7 @@ export class QuestionnaireAddComponent implements OnInit {
     private _questionService: QuestionService,
     private _answerService: AnswerService,
     private _examService: ExamService,
-    private _questionnaire: QuestionnaireService
+    private _questionnaireService: QuestionnaireService
 
   ){
     this.titulo = 'Crear Cuestionario';
@@ -63,7 +64,13 @@ export class QuestionnaireAddComponent implements OnInit {
     this.selectedDevice = newValue;
     // ... do other stuff here ...
 }
+/*
+selectionChange(input: HTMLInputElement) {
 
+    console.log(input);
+    console.log(input.name);
+}
+*/
   getListExams() {
 
     this._examService.getListExams(this.token).subscribe(
@@ -151,5 +158,24 @@ export class QuestionnaireAddComponent implements OnInit {
 
   onSubmit(){
     console.log(this.questionnaire);
+    this._questionnaireService.addQuestionnaire(this.token, this.questionnaire).subscribe(
+      response => {
+        if(!response.questionnaire){
+          this.alertMessage = "ERROR en el servidor";
+        }else{
+          this.alertMessage = '¡El cuestionario fue creado correctamente!';
+          this.questionnaire = response.questionnaire;
+        }
+
+      },
+      error => {
+        var errorMessage = <any>error;
+        if(errorMessage != null){
+          var body = JSON.parse(error._body);
+          this.alertMessage = body.message;
+          console.log(error);
+      }
+    }
+    );
   }
 }
