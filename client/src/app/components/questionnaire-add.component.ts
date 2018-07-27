@@ -30,6 +30,7 @@ export class QuestionnaireAddComponent implements OnInit {
   public token;
   public url: string;
   public alertMessage;
+  public id_exma = null;
 
   constructor(
     private _route: ActivatedRoute,
@@ -52,12 +53,16 @@ export class QuestionnaireAddComponent implements OnInit {
   ngOnInit(){
     console.log('cargado el componente de questionnaire-add.component.ts');
     this.getListExams();
-    this.getQuestionsTheme();
-    var id = document.getElementById('exam');
-
-    console.log(id);
-
+    //this.getQuestionsTheme();
+    //this.getQuestionsTheme();
   }
+  public devices = 'one two three'.split(' ');
+  public selectedDevice = 'two';
+  onChange(newValue) {
+    console.log(newValue);
+    this.selectedDevice = newValue;
+    // ... do other stuff here ...
+}
 
   getListExams() {
 
@@ -113,19 +118,13 @@ export class QuestionnaireAddComponent implements OnInit {
 
   }
 
-  getQuestionsTheme(){
-    //let id = document.getElementById("exam").innerHTML;
-             //document.getElementById("exam").innerHTML = this.user.name;
-             //document.getElementById('image-logged').setAttribute('src', image_path);
-             var id = document.getElementById('exam');
 
-    console.log(id);
-    alert('hola');
-  //  this._route.params.forEach((params: Params) => {
-        //let id = params['id'];
-        //let id = this.question.theme;
-        /*
-        this._questionService.getQuestionsTheme(this.token, id).subscribe(
+
+
+  getQuestionsTheme(id_exma){
+    console.log(id_exma);
+    this.selectedDevice = id_exma;
+        this._questionService.getQuestionsTheme(this.token, id_exma).subscribe(
 
           response => {
             if (!response.questions) {
@@ -147,8 +146,7 @@ export class QuestionnaireAddComponent implements OnInit {
 
           }
         );
-  //  });
-  */
+
   }
 
   onSubmit(){
