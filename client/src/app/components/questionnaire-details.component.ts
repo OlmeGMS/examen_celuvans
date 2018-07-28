@@ -65,75 +65,76 @@ export class QuestionnaireDetailComponent implements OnInit {
             this._router.navigate(['/']);
           } else {
             this.questionnaire = response.questionnaire;
-            console.log('ttt' + this.questionnaire = response.questionnaire);
-            /*
-            //sacer el Examen
-            this._examService.getExam(this.token, response.questionnaire.exam).subscribe(
-              response => {
-                if (!response.exam) {
-                  this.alertMessage = 'El cuestionario no tiene un examen asociado';
-                } else {
-                  this.exam = response.exam;
-                }
-              },
-              error => {
-                var errorMessage = <any>error;
-
-                if (errorMessage != null) {
-                  var body = JSON.parse(error._body);
-                  //this.alertMessage = body.message;
-                  console.log(error);
-                }
-              }
-            );
-            //sacar las preguntas
-            this._questionService.getQuestions(this.token, response.questionnaire.question[0]).subscribe(
-              response => {
-                if (!response.question) {
-                  this.alertMessage = 'Este cuestionario no tine preguntas';
-                } else {
-                  this.questions = response.questions;
-                }
-
-              },
-              error => {
-                var errorMessage = <any>error;
-
-                if (errorMessage != null) {
-                  var body = JSON.parse(error._body);
-                  //this.alertMessage = body.message;
-                  console.log(error);
-                }
-              }
-
-            );
-            */
-            //response.questionnaire.question
+            console.log(this.questionnaire = response.questionnaire);
 
             //sacar las respuesta
+
             var d = this.questionnaire = response.questionnaire;
-            console.log('hy '+ this.questionnaire.question._id);
+            console.log('esto');
+            console.log(d);
+            var dq = d.question;
+            console.log('estoss');
+            console.log(dq);
+            var count_dqd = dq.length;
+            var dqd = dq[0]._id;
+            console.log('didi');
+            console.log(dqd);
+            console.log('yuyu');
+            console.log(count_dqd);
 
-            this._answerService.getAnswer(this.token, d[1]).subscribe(
-              response => {
-                if (!response.answer) {
-                  this.alertMessage = 'Las preguntas no tienen respuestas';
-                } else {
-                  this.answer = response.answer;
-                }
-              },
-              error => {
-                var errorMessage = <any>error;
 
-                if (errorMessage != null) {
-                  var body = JSON.parse(error._body);
-                  //this.alertMessage = body.message;
-                  console.log(error);
+
+
+            dq.forEach((element) => {
+              console.log(element);
+              console.log('o');
+              console.log(element._id);
+
+              var id_question = element._id;
+              var ttw[];
+              var ttww[];
+
+              this._answerService.getAnswers(this.token, id_question).subscribe(
+
+                response => {
+                  if (!response.answers) {
+                    //this._router.navigate(['/']);
+                    console.log('naranjas');
+                  } else {
+                    //this.alertMessage = '¡La pregunta fue creada correctamente!';
+                    this.answers = response.answers;
+                    ttw = response.answers;
+                    ttww = ttw;
+                    console.log(this.answers);
+
+
+
+
+                  }
+
+                },
+                error => {
+                  var errorMessage = <any>error;
+                  if (errorMessage != null) {
+                    var body = JSON.parse(error._body);
+                    //this.alertMessage = body.message;
+                    console.log(error);
+                  }
+
                 }
-              });
+              );
+
+            });
+
+
+
+
+            //var id_question = "5b59dd786b9afc09581869f6";
+
+
+
 
           }
-
 
         },
         error => {
@@ -146,39 +147,39 @@ export class QuestionnaireDetailComponent implements OnInit {
           }
         }
       );
-    });
-  }
+  });
+}
+/*
+getAnswers(question){
 
-  getAnswers(question){
-    let id_question = question;
-    this._answerService.getAnswers(this.token, id_question).subscribe(
+  let id_question = question;
+  this._answerService.getAnswers(this.token, id_question).subscribe(
 
-      response => {
-        if (!response.answers) {
-          this._router.navigate(['/']);
-        } else {
-          //this.alertMessage = '¡La pregunta fue creada correctamente!';
-          this.answers = response.answers;
-          console.log(this.answers);
-        }
-
-      },
-      error => {
-        var errorMessage = <any>error;
-        if (errorMessage != null) {
-          var body = JSON.parse(error._body);
-          //this.alertMessage = body.message;
-          console.log(error);
-        }
-
+    response => {
+      if (!response.answers) {
+        this._router.navigate(['/']);
+      } else {
+        //this.alertMessage = '¡La pregunta fue creada correctamente!';
+        this.answers = response.answers;
+        console.log(this.answers);
       }
-    );
+
+    },
+    error => {
+      var errorMessage = <any>error;
+      if (errorMessage != null) {
+        var body = JSON.parse(error._body);
+        //this.alertMessage = body.message;
+        console.log(error);
+      }
+
+    }
+  );
 
 
+}
+*/
+onSubmit() {
 
-  }
-
-  onSubmit(){
-
-  }
+}
 }

@@ -6,6 +6,7 @@ var mongoosePaginate = require('mongoose-pagination');
 var Question = require('../models/question');
 var Exam = require('../models/exam');
 var Questionnaire = require('../models/questionnaire');
+var AnswerMethod = require('./answer');
 
 function getQuestionnaire(req, res){
   var questionnaireId = req.params.id;
@@ -66,6 +67,7 @@ function getListQuestionnaires(req, res){
 function saveQuestionnaire(req, res) {
   var questionnaire = new Questionnaire();
 
+  var respuestas = null;
   var params = req.body;
    questionnaire.exam = params.exam;
    questionnaire.question = params.question;
