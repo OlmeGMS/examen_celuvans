@@ -24,6 +24,29 @@ function getQuestionnaire(req, res){
   });
 }
 
+function getQuestionnairesPages(req, res){
+  if (req.params.page) {
+    var page = req.params.page;
+  }else {
+    var page = 1;
+  }
+
+  var itemsPerPage = 1;
+  Questionnaire.find().sort('question').paginate(page, itemsPerPage, function(err, questionnaires, total){
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!questionnaires) {
+        res.status(404).send({message: 'No hay questionarios !!'});
+      }else {
+        return res.status(200).send({
+          questionnaires: questionnaires
+        });
+      }
+    }
+  });
+}
+
 function getQuestionnaires(req, res){
 
   var examId = req.params.questionnaire;
@@ -122,6 +145,7 @@ function saveQuestionnaire(req, res) {
    getQuestionnaire,
    getQuestionnaires,
    getListQuestionnaires,
+   getQuestionnairesPages,
    saveQuestionnaire,
    updateQuestionnaire,
    deleteQuestionnaire

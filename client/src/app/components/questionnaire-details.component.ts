@@ -56,7 +56,8 @@ export class QuestionnaireDetailComponent implements OnInit {
   }
 
   getQuestionnaire() {
-    this._route.params.forEach((params: Params) => {
+  this._route.params.forEach((params: Params) => {
+      //let params: Params;
       let id = params['id'];
 
       this._questionnaireService.getQuestionnaire(this.token, id).subscribe(
@@ -76,35 +77,40 @@ export class QuestionnaireDetailComponent implements OnInit {
             console.log('estoss');
             console.log(dq);
             var count_dqd = dq.length;
-            var dqd = dq[0]._id;
+            //var dqd = [0]._id;
             console.log('didi');
-            console.log(dqd);
+            //console.log(dqd);
             console.log('yuyu');
             console.log(count_dqd);
+            console.log('poi');
+            console.log(dq._id);
 
 
 
 
-            dq.forEach((element) => {
-              console.log(element);
+        //    dq.forEach((element) => {
+              //console.log(element);
               console.log('o');
-              console.log(element._id);
+              //console.log(element._id);
+              console.log(dq);
 
-              var id_question = element._id;
-              var ttw[];
-              var ttww[];
+            //  var id_question = element._id;
+              var ttw = null;
+              var ttww = null;
 
-              this._answerService.getAnswers(this.token, id_question).subscribe(
+
+              this._answerService.getAnswers(this.token, dq._id).subscribe(
 
                 response => {
                   if (!response.answers) {
-                    //this._router.navigate(['/']);
-                    console.log('naranjas');
+                    this._router.navigate(['/']);
+                    //console.log('naranjas');
                   } else {
                     //this.alertMessage = '¡La pregunta fue creada correctamente!';
-                    this.answers = response.answers;
+                    console.log('ujm');
+                    //this.answers = response.answers;
                     ttw = response.answers;
-                    ttww = ttw;
+                    this.answers = ttw;
                     console.log(this.answers);
 
 
@@ -123,8 +129,8 @@ export class QuestionnaireDetailComponent implements OnInit {
 
                 }
               );
-
-            });
+            //  this.answers = null;
+          //  });
 
 
 
@@ -149,10 +155,11 @@ export class QuestionnaireDetailComponent implements OnInit {
       );
   });
 }
-/*
+
 getAnswers(question){
 
   let id_question = question;
+
   this._answerService.getAnswers(this.token, id_question).subscribe(
 
     response => {
@@ -178,7 +185,7 @@ getAnswers(question){
 
 
 }
-*/
+
 onSubmit() {
 
 }
