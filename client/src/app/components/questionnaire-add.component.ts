@@ -23,6 +23,7 @@ export class QuestionnaireAddComponent implements OnInit {
 
   public titulo: string;
   public questions: Question[];
+  public answers: Answer[];
   public answer: Answer;
   public exams: Exam[];
   public questionnaire: Questionnaire;
@@ -127,7 +128,6 @@ selectionChange(input: HTMLInputElement) {
 
 
 
-
   getQuestionsTheme(id_exma){
     console.log(id_exma);
     this.selectedDevice = id_exma;
@@ -156,8 +156,11 @@ selectionChange(input: HTMLInputElement) {
 
   }
 
+
+
   onSubmit(){
     console.log(this.questionnaire);
+
     this._questionnaireService.addQuestionnaire(this.token, this.questionnaire).subscribe(
       response => {
         if(!response.questionnaire){
@@ -177,5 +180,6 @@ selectionChange(input: HTMLInputElement) {
       }
     }
     );
+    
   }
 }

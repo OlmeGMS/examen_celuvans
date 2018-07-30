@@ -4,15 +4,17 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL } from '../services/global';
 import { UserService } from '../services/user.service';
 import { QuestionService } from '../services/question.service';
+import { AnswerService } from '../services/answer.service';
 import { ThemeService } from '../services/theme.service';
 import { Question } from '../models/question';
 import { Theme } from '../models/theme';
+import { Answer } from '../models/answer';
 import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'question-add',
   templateUrl: '../views/question-add.html',
-  providers: [UserService, QuestionService, ThemeService]
+  providers: [UserService, QuestionService, ThemeService, AnswerService ]
 })
 
 export class QuestionAddComponent implements OnInit{
@@ -20,6 +22,8 @@ export class QuestionAddComponent implements OnInit{
   public titulo: string;
   public question: Question;
   public themes: Theme[];
+  public answers: Answer[];
+  public answer: Answer;
   public identity;
   public token;
   public url: string;

@@ -6,8 +6,7 @@ var Schema = mongoose.Schema;
 
 var QuestionnaireSchema = Schema({
   exam: { type: Schema.ObjectId, ref: 'Exam'},
-  question: [ { type: Schema.ObjectId, ref: 'Question'} ]
-
+  question: [ { type: Schema.ObjectId, ref: 'Question'} ]  
   /*questions: [{
     question: { type: Schema.ObjectId, ref: 'Question'}
   }]*/

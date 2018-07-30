@@ -33,6 +33,11 @@ export class QuestionnaireDetailComponent implements OnInit {
   public url: string;
   public confirmado;
   public alertMessage;
+  public radioSel:any;
+  public radioSelected:string;
+  public radioSelectedString:string;
+  //public respuestas: Answer[];
+
 
   constructor(
     private _route: ActivatedRoute,
@@ -47,6 +52,9 @@ export class QuestionnaireDetailComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
+
+        //Selecting Default Radio item here
+
   }
 
   ngOnInit() {
@@ -186,7 +194,11 @@ getAnswers(question){
 
 }
 
+radioFun(){
+  console.log('trelo');
+  console.log('trelo');
+}
 onSubmit() {
-
+console.log(this.questionnaire);
 }
 }

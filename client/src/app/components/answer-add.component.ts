@@ -52,6 +52,8 @@ export class AnswerAddComponent implements OnInit {
       let question_id = params['question'];
       this.answer.question = question_id;
 
+      console.log(this.answer);
+
       this._answerService.addAnswer(this.token, this.answer).subscribe(
         response => {
           if(!response.answer){
@@ -59,7 +61,7 @@ export class AnswerAddComponent implements OnInit {
           }else{
             this.alertMessage = '¡La respuesta fue creada correctamente!';
             this.answer = response.answer;
-            
+
           }
 
         },
@@ -73,6 +75,7 @@ export class AnswerAddComponent implements OnInit {
 
         }
       );
+
     });
 
   }
