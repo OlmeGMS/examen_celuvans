@@ -36,6 +36,8 @@ export class QuestionnaireDetailComponent implements OnInit {
   public radioSel:any;
   public radioSelected:string;
   public radioSelectedString:string;
+  public radio:Array<any> ;
+  public calificacion: number;
   //public respuestas: Answer[];
 
 
@@ -194,11 +196,26 @@ getAnswers(question){
 
 }
 
-radioFun(){
+onSelectionChange(entry) {
+        //this.questionnaire = entry;
+
+        //console.log(entry);
+        this.radio = entry;
+
+
+
+        //console.log('plo');
+        console.log(this.radio);
+
+
+    }
+
+radioFun(entry){
   console.log('trelo');
   console.log('trelo');
 }
 onSubmit() {
 console.log(this.questionnaire);
+
 }
 }

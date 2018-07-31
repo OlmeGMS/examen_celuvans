@@ -63,7 +63,7 @@
                 <!--<label class="col-md-3 control-label">Inline Radios</label>-->
                 <div class="col-md-9" style="color:#333;float: right;" >
                   <label class="radio-inline" for="respuestasta_{{que._id}}" >
-                          <input class="radio-inline" type="radio" #respuestas="ngModel" id="respuestasta_{{ans._id}}" name="respuestasta_{{ans._id}}" value="{{ans.condition}}" [(ngModel)]="questionnaire.respuestas" (ngModelChange)="RadioCheck(i)"/> {{ans.answer}}
+                          <input class="radio-inline" type="radio" #respuesta="ngModel" id="respuestasta_{{ans._id}}" name="respuestasta_{{ans._id}}" value="{{ans.condition}}" [(ngModel)]="ans.checked" (change)="onSelectionChange(ans.condition)"/> {{ans.answer}}
                   </label>
 
                 </div>
