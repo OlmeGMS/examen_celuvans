@@ -57,6 +57,7 @@
           <div class="alert alert-info">
             <strong>Error!</strong> {{errorMessage}}
           </div>
+          <a href="index.html" class="btn-info" name="button">Volver al login</a>
         </div>
 
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()" method="post" role="form" id="form_login">
@@ -68,7 +69,7 @@
                 <i class="entypo-user"></i>
               </div>
 
-              <input type="text" class="form-control" #email="ngModel" name="username" id="username" [(ngModel)]="user.email" placeholder="Correo" autocomplete="off" required/>
+              <input type="email" class="form-control" #email="ngModel" name="username" id="username" [(ngModel)]="user.email" placeholder="Correo" autocomplete="off" required/>
               <span *ngIf="!email.valid && email.touched">El correo es obligatorio</span>
             </div>
 
@@ -187,7 +188,7 @@
                             <i class="entypo-phone"></i>
                           </div>
 
-                          <input type="text" class="form-control" #cedula="ngModel" name="cedula" id="cedula" [(ngModel)]="user_register.cedula" placeholder="Nº de cédula" data-mask="" autocomplete="off" required/>
+                          <input type="number" class="form-control" #cedula="ngModel" name="cedula" id="cedula" [(ngModel)]="user_register.cedula" placeholder="Nº de cédula" data-mask="" autocomplete="off" required/>
                           <span *ngIf="!cedula.valid && cedula.touched">El número de documentos es obligatorio</span>
                         </div>
                       </div>
@@ -198,7 +199,7 @@
                             <i class="entypo-mail"></i>
                           </div>
 
-                          <input type="text" class="form-control" #email="ngModel" name="email" id="email" [(ngModel)]="user_register.email" placeholder="E-mail" autocomplete="off" required/>
+                          <input type="email" class="form-control" #email="ngModel" name="email" id="email" [(ngModel)]="user_register.email" placeholder="E-mail" autocomplete="off" required/>
                           <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
                         </div>
                       </div>

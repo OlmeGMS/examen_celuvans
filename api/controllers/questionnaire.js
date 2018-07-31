@@ -74,7 +74,7 @@ function getQuestionnaires(req, res){
 function getListQuestionnaires(req, res){
   var find = Questionnaire.find({}).sort('questionnaire');
 
-  find.populate({path: 'questionnaire'}).exec((err, questionnaires) => {
+  find.populate({path: 'questionnaire'}).populate({path: 'exam'}).populate({path: 'question'}).exec((err, questionnaires) => {
     if (err) {
       res.status(500).send({message: 'Error en la petición'});
     }else {

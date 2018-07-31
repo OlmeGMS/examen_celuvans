@@ -1,4 +1,4 @@
-<div class="" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+<div class="" *ngIf="identity">
   <ol class="breadcrumb bc-3">
     <li>
       <a [routerLink]="['/']"><i class="fa-home"></i>Home</a>
@@ -44,7 +44,7 @@
             </div>
             <div class="clearfix"></div>
             <br />
-            <div class="" *ngFor="let que of questionnaire.question; let i = index">
+            <div class="" *ngFor="let que of questionnaire.question; let i = index;">
 
               <div class="form-group">
                 <label for="" class="col-sm-3 control-label" style="color:#333;"><i class="entypo-right-bold"></i></label>
@@ -58,12 +58,12 @@
                   <button type="submit" class="btn btn-default" id="btn_{{que.question}}" (click)="getAnswers(que._id)">Mostrar respuestas</button>
                 </div>
               </div>-->
-              <div class="" *ngFor="let ans of answers; let i = index"  attr.id="Location{{ans._id}}" [id]="ans._id">
+              <div class="" *ngFor="let ans of answers; let i = index;trackBy:trackByIdx"  attr.id="Location{{ans._id}}" [id]="ans._id">
               <div class="form-group" *ngIf="ans.question._id == que._id">
                 <!--<label class="col-md-3 control-label">Inline Radios</label>-->
                 <div class="col-md-9" style="color:#333;float: right;" >
                   <label class="radio-inline" for="respuestasta_{{que._id}}" >
-                          <input class="radio-inline" type="radio" #respuesta="ngModel" id="respuestasta_{{ans._id}}" name="respuestasta_{{ans._id}}" value="{{ans.condition}}" [(ngModel)]="ans.checked" (change)="onSelectionChange(ans.condition)"/> {{ans.answer}}
+                          <input class="radio-inline" type="radio" #respuesta="ngModel" id="respuestasta_{{ans._id}}" name="respuestasta_{{ans._id}}" value="{{ans.condition}}" [(ngModel)]="ans.respuetas" (change)="onSelectionChange(ans.condition)"/> {{ans.answer}}
                   </label>
 
                 </div>
@@ -93,7 +93,7 @@
   </div>
 </div>
 
-<div class="" *ngIf="!identity || identity.role != 'ROLE_ADMIN'">
+<div class="" *ngIf="!identity">
   <h2>ERROR: Permisos</h2>
   <br>
   <p style=" color: #000;">No tienes acceso a esta parte de la aplicación.</p>

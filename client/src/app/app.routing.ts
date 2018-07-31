@@ -30,7 +30,11 @@ import { ExamEditComponent } from './components/exam-edit.component';
 //import questionnaire
 import { QuestionnaireAddComponent } from './components/questionnaire-add.component';
 import { QuestionnaireTableComponent } from './components/questionnaire-table.component';
+import { QuestionnaireTableUserComponent } from './components/questionnaire-table-user.component';
 import { QuestionnaireDetailComponent } from './components/questionnaire-details.component';
+
+//import qualification
+import { QualificationTableComponent } from './components/qualification-table-admin.component';
 
 
 
@@ -52,7 +56,9 @@ const appRoutes: Routes = [
   {path: 'editar-examen/:id', component: ExamEditComponent},
   {path: 'crear-cuestionario', component: QuestionnaireAddComponent},
   {path: 'questionarios', component: QuestionnaireTableComponent},
+  {path: 'questionarios-usuario', component: QuestionnaireTableUserComponent },
   {path: 'questionario-detalle/:id', component: QuestionnaireDetailComponent},
+  {path: 'calificaciones-admin', component: QualificationTableComponent},
   {path: 'registro', component: RegisterComponent},
   {path: '**', component: HomeComponent}
 ];

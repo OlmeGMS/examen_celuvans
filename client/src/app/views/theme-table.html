@@ -1,7 +1,7 @@
 <div class="" *ngIf="identity">
   <ol class="breadcrumb bc-3">
     <li>
-      <a [routerLink]="['/']"><i class="fa-home"></i>Home</a>
+      <a [routerLink]="['/']"><i class="fa fa-home"></i>Home</a>
     </li>
     <li class="active">
 
@@ -35,7 +35,7 @@
               <a [routerLink]="['/editar-tema', theme._id]" data-toggle="tooltip" title="Editar" class="btn btn-default"><i class="entypo-pencil"></i></a>
               <a (click)="onDeleteConfirm(theme._id)" data-toggle="tooltip" title="Borrar" class="btn btn-danger"><i class="entypo-cancel"></i></a>
           </div>
-          <div class="btn-group btn-group-xs seguro" *ngIf="confirmado == theme._id" style=" margin-left: -4px;margin-top: -38px">
+          <div class="btn-group btn-group-xs seguro" *ngIf="confirmado == theme._id" style="margin-left: -8px;margin-top: -44px;">
               <a (click)="onDeleteTheme(theme._id)" data-toggle="tooltip" title="Eliminar" class="btn btn-danger"><i class="entypo-cancel"></i>Eliminar</a>
               <a (click)="onCancelTheme()" data-toggle="tooltip" title="Cancelar" class="btn btn-default"><i class="entypo-cw">Cancelar</i></a>
           </div>

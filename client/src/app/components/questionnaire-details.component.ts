@@ -7,16 +7,18 @@ import { QuestionService } from '../services/question.service';
 import { AnswerService } from '../services/answer.service';
 import { ExamService } from '../services/exam.service';
 import { QuestionnaireService } from '../services/questionnaire.service';
+import { QualificationService } from '../services/qualification.service';
 import { Question } from '../models/question';
 import { Answer } from '../models/answer';
 import { Exam } from '../models/exam';
+import { Qualification } from '../models/qualification';
 import { Questionnaire } from '../models/questionnaire';
 import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'questionnaire-details',
   templateUrl: '../views/questionnaire-details.html',
-  providers: [UserService, QuestionService, AnswerService, ExamService, QuestionnaireService]
+  providers: [UserService, QuestionService, AnswerService, ExamService, QuestionnaireService,  QualificationService ]
 })
 
 export class QuestionnaireDetailComponent implements OnInit {
@@ -38,6 +40,8 @@ export class QuestionnaireDetailComponent implements OnInit {
   public radioSelectedString:string;
   public radio:Array<any> ;
   public calificacion: number;
+  public pru: Answer[] = [];
+  public qualification: Qualification;
   //public respuestas: Answer[];
 
 
@@ -48,12 +52,14 @@ export class QuestionnaireDetailComponent implements OnInit {
     private _questionService: QuestionService,
     private _answerService: AnswerService,
     private _examService: ExamService,
-    private _questionnaireService: QuestionnaireService
+    private _questionnaireService: QuestionnaireService,
+    private _qualificationService: QualificationService,
   ) {
     this.titulo = 'Questionario';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
+    this.qualification = new Qualification('','',0,0);
 
         //Selecting Default Radio item here
 
@@ -200,12 +206,15 @@ onSelectionChange(entry) {
         //this.questionnaire = entry;
 
         //console.log(entry);
+        this.pru.push(entry);
+
+
         this.radio = entry;
 
 
 
-        //console.log('plo');
-        console.log(this.radio);
+        console.log(this.pru);
+        //console.log(this.radio);
 
 
     }
@@ -216,6 +225,55 @@ radioFun(entry){
 }
 onSubmit() {
 console.log(this.questionnaire);
+var count_pru = this.pru.length;
+console.log(count_pru);
+var calif = 0;
+var nota = 0;
+var yu  = null;
+for (var i = 0; i < count_pru; i++) {
+  yu = this.pru[i];
+  if(yu === true){
+    calif = calif + 5;
+  }
+
+}
+nota = calif/count_pru;
+console.log(nota);
+
+var id_user = this.identity._id;
+console.log(id_user);
+this.qualification.exam = this.questionnaire.exam;
+this.qualification.user = id_user;
+
+this.qualification.score = nota;
+this.qualification.intent = 1;
+console.log(this.qualification);
+console.log(this.identity);
+console.log(this.identity._id);
+
+this._qualificationService.addQualification(this.token, this.qualification).subscribe(
+  response => {
+    if(!response.qualification){
+      this.alertMessage = "Error en el servidor";
+    }else{
+      this.alertMessage = '¡La respuesta fue creada correctamente!';
+      this._router.navigate(['/']);
+
+    }
+
+  },
+  error => {
+    var errorMessage = <any>error;
+    if(errorMessage != null){
+      var body = JSON.parse(error._body);
+      this.alertMessage = body.message;
+      console.log(error);
+    }
+  }
+);
+
+
+
 
 }
 }

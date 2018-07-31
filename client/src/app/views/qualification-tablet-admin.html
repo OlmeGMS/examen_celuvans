@@ -1,0 +1,226 @@
+<div class="" *ngIf="identity">
+  <ol class="breadcrumb bc-3">
+    <li>
+      <a [routerLink]="['/']"><i class="fa fa-home"></i>Home</a>
+    </li>
+    <li class="active">
+
+      <strong>{{titulo}}</strong>
+    </li>
+  </ol>
+
+  <h2>{{titulo}}</h2>
+  <br />
+
+  <!--<a [routerLink]="['/crear-respuesta]" *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn btn-default"> Añadir Respuesta</a>-->
+</div>
+<br />
+<!--<div class="clearfix"></div>-->
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="panel panel-primary" data-collapsed="0">
+
+      <div class="panel-heading">
+        <div class="panel-title" style="color:#000;">
+          Buscar por examen
+        </div>
+
+        <div class="panel-options">
+          <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+          <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+          <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+        </div>
+      </div>
+      <div *ngIf="alertMessage">
+        <div class="alert alert-info">
+          {{alertMessage}}
+        </div>
+      </div>
+      <div class="panel-body">
+        <form role="form" #formAnswer="ngForm" class="form-horizontal form-groups-bordered" (ngSubmit)="onSubmit()">
+          <div class="form-group" ng-app="selectsDependientes">
+            <label for="exam" class="col-sm-3 control-label" style="color:#333;">Examen</label>
+
+            <div class="col-sm-5">
+              <select class="form-control" #exam="ngModel" name="exam" id="exam" [(ngModel)]="qualification.exam" (ngModelChange)="getQualificationsExamApproved($event)" (ngModelChange)="getListQualificationExam($event)" (ngModelChange)="getQualificationsExamReprobate($event)" required>
+                  <option value="" disabled>Selecione el examen</option>
+                  <option *ngFor="let exam of exams" value="{{exam._id}}" (click)="getListQualificationExam(exam._id)" (click)="getQualificationsExamApproved(exam._id)" (click)="getQualificationsExamReprobate(exam._id)">{{exam.name}}</option>
+              </select>
+              <!--<span *ngIf="!exam.valid && exam.touched && !exam.selected">El examen es obligatorio</span>-->
+            </div>
+          </div>
+            <br />
+
+          <!--<div class="form-group">
+            <div class="col-sm-offset-3 col-sm-5">
+              <button type="submit" class="btn btn-default" [disabled]="!formAnswer.form.valid">Examen</button>
+            </div>
+          </div>-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="">
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <ul class="nav nav-tabs bordered"><!-- available classes "bordered", "right-aligned" -->
+            <li class="active">
+              <a href="#home" data-toggle="tab">
+                <span class="visible-xs"><i class="entypo-home"></i></span>
+                <span class="hidden-xs">Todos</span>
+              </a>
+            </li>
+            <li>
+              <a href="#profile" data-toggle="tab">
+                <span class="visible-xs"><i class="entypo-user"></i></span>
+                <span class="hidden-xs">Aprobaron</span>
+              </a>
+            </li>
+            <li>
+              <a href="#messages" data-toggle="tab">
+                <span class="visible-xs"><i class="entypo-mail"></i></span>
+                <span class="hidden-xs">Reprobados</span>
+              </a>
+            </li>
+            <!--<li>
+              <a href="#settings" data-toggle="tab">
+                <span class="visible-xs"><i class="entypo-cog"></i></span>
+                <span class="hidden-xs">Settings</span>
+              </a>
+            </li>-->
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+              <table class="table table-bordered datatable" id="table-1">
+                <thead>
+                    <tr>
+                      <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                      <th class="text-center" data-hide="phone">Examen</th>
+                      <th class="text-center" ss="text-center" data-hide="phone">Usuario</th>
+                      <th class="text-center" data-hide="phone">Calificación</th>
+                      <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let qualification of qualifications" class="odd gradeX" style="color:#000;">
+                    <td class="text-center">{{qualification._id}}</td>
+                    <td class="text-center">{{qualification.exam.name}}</td>
+                    <td class="text-center">{{qualification.user.name | uppercase}} {{qualification.user.surname | uppercase}}</td>
+                    <td *ngIf="qualification.score > 2.9" class="text-center "><span class="label label-success" style=" width: 45px;">{{qualification.score | number : '1.1'}}</span></td>
+                    <td *ngIf="qualification.score < 3" class="text-center"><span class="label label-danger" style=" width: 45px;">{{qualification.score | number : '1.1'}}</span></td>
+                    <!--<td class="text-center">-->
+                        <!--<div class="btn-group btn-group-xs">
+                            <a [routerLink]="['/crear-respuesta', answer.question._id]" data-toggle="tooltip" title="Respuesta" class="btn btn-info"><i class="entypo-bookmark"></i></a>
+                            <a [routerLink]="['/editar-respuesta', answer._id]" data-toggle="tooltip" title="Editar" class="btn btn-default"><i class="entypo-pencil"></i></a>
+                            <a (click)="onDeleteConfirm(answer._id)" data-toggle="tooltip" title="Borrar" class="btn btn-danger"><i class="entypo-cancel"></i></a>
+                        </div>
+                        <div class="btn-group btn-group-xs seguro" *ngIf="confirmado == answer._id" style="  margin-left: -8px;margin-top: -44px;">
+                            <a (click)="onDeleteAnswer(answer._id)" data-toggle="tooltip" title="Eliminar" class="btn btn-danger"><i class="entypo-cancel"></i>Eliminar</a>
+                            <a (click)="onCancelAnswer()" data-toggle="tooltip" title="Cancelar" class="btn btn-default"><i class="entypo-cw">Cancelar</i></a>
+                        </div>-->
+                    <!--</td>-->
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                    <th class="text-center" data-hide="phone">Examen</th>
+                    <th class="text-center" data-hide="phone">Usuario</th>
+                    <th class="text-center" data-hide="phone">Calificación</th>
+                    <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="tab-pane" id="profile">
+              <table class="table table-bordered datatable" id="table-1">
+                <thead>
+                    <tr>
+                      <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                      <th class="text-center" data-hide="phone">Examen</th>
+                      <th class="text-center" ss="text-center" data-hide="phone">Usuario</th>
+                      <th class="text-center" data-hide="phone">Calificación</th>
+                      <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let aprobate of aprobates" class="odd gradeX" style="color:#000;">
+                    <td class="text-center">{{aprobate._id}}</td>
+                    <td class="text-center">{{aprobate.exam.name}}</td>
+                    <td class="text-center">{{aprobate.user.name | uppercase}} {{aprobate.user.surname | uppercase}}</td>
+                    <td *ngIf="aprobate.score > 2.9" class="text-center "><span class="label label-success" style=" width: 45px;">{{aprobate.score | number : '1.1'}}</span></td>
+                    <td *ngIf="aprobate.score < 3" class="text-center"><span class="label label-danger" style=" width: 45px;">{{aprobate.score | number : '1.1'}}</span></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                    <th class="text-center" data-hide="phone">Examen</th>
+                    <th class="text-center" data-hide="phone">Usuario</th>
+                    <th class="text-center" data-hide="phone">Calificación</th>
+                    <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <div class="tab-pane" id="messages">
+              <table class="table table-bordered datatable" id="table-1">
+                <thead>
+                    <tr>
+                      <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                      <th class="text-center" data-hide="phone">Examen</th>
+                      <th class="text-center" ss="text-center" data-hide="phone">Usuario</th>
+                      <th class="text-center" data-hide="phone">Calificación</th>
+                      <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let reprobate of reprobates" class="odd gradeX" style="color:#000;">
+                    <td class="text-center">{{reprobate._id}}</td>
+                    <td class="text-center">{{reprobate.exam.name}}</td>
+                    <td class="text-center">{{reprobate.user.name | uppercase}} {{reprobate.user.surname | uppercase}}</td>
+                    <td *ngIf="reprobate.score > 2.9" class="text-center "><span class="label label-success" style=" width: 45px;">{{qualification.score | number : '1.1'}}</span></td>
+                    <td *ngIf="reprobate.score < 3" class="text-center"><span class="label label-danger" style=" width: 45px;">{{qualification.score | number : '1.1'}}</span></td>
+                    <!--<td class="text-center">-->
+                        <!--<div class="btn-group btn-group-xs">
+                            <a [routerLink]="['/crear-respuesta', answer.question._id]" data-toggle="tooltip" title="Respuesta" class="btn btn-info"><i class="entypo-bookmark"></i></a>
+                            <a [routerLink]="['/editar-respuesta', answer._id]" data-toggle="tooltip" title="Editar" class="btn btn-default"><i class="entypo-pencil"></i></a>
+                            <a (click)="onDeleteConfirm(answer._id)" data-toggle="tooltip" title="Borrar" class="btn btn-danger"><i class="entypo-cancel"></i></a>
+                        </div>
+                        <div class="btn-group btn-group-xs seguro" *ngIf="confirmado == answer._id" style="  margin-left: -8px;margin-top: -44px;">
+                            <a (click)="onDeleteAnswer(answer._id)" data-toggle="tooltip" title="Eliminar" class="btn btn-danger"><i class="entypo-cancel"></i>Eliminar</a>
+                            <a (click)="onCancelAnswer()" data-toggle="tooltip" title="Cancelar" class="btn btn-default"><i class="entypo-cw">Cancelar</i></a>
+                        </div>-->
+                    <!--</td>-->
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                    <th class="text-center" data-hide="phone">Examen</th>
+                    <th class="text-center" data-hide="phone">Usuario</th>
+                    <th class="text-center" data-hide="phone">Calificación</th>
+                    <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!--<div class="tab-pane" id="settings">
+
+            </div>-->
+          </div>
+
+
+        </div>
+
+
+      </div>
+</div>

@@ -9,3 +9,5 @@ var QualificationSchema = Schema({
   score: String,
   intent: String
 });
+
+module.exports = mongoose.model('Qualification', QualificationSchema)

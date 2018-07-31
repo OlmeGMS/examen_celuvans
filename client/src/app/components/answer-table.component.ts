@@ -10,8 +10,8 @@ import { Answer } from '../models/answer';
 import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'question-table',
-  templateUrl: '../views/answer.tablet.html',
+  selector: 'answer-table',
+  templateUrl: '../views/answer-tablet.html',
   providers: [UserService, QuestionService, AnswerService ]
 })
 

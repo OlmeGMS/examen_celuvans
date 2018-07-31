@@ -24,18 +24,15 @@ function getQualification(req, res){
 }
 
 function getQualifications(req, res){
-  var examId = req.params.qualification;
   var userId = req.params.qualification;
 
-  if(!examId && !userId){
+  if(!userId){
     var find = Qualification.find({}).sort('qualification');
-  }else if (examId && !userId) {
-    var find = Qualification.find({exam: examId}).sort('exam');
-  }else if (!examId && userId) {
+  }else {
     var find = Qualification.find({user: userId}).sort('user');
   }
 
-  find.populate({path: 'exam'}).exec((err, qualifications) => {
+  find.populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
     if (err) {
       res.status(500).send({message: 'Error en la petición'});
     }else {
@@ -50,10 +47,82 @@ function getQualifications(req, res){
 
 }
 
+function getQualificationsExam(req, res){
+  var examId = req.params.qualification;
+
+
+  if(!examId ){
+    var find = Qualification.find({}).sort('qualification');
+  }else{
+    var find = Qualification.find({exam: examId}).sort('exam');
+  }
+
+  find.populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!qualifications) {
+        res.status(404).send({message: 'No hay calificaciones'});
+      }else{
+        res.status(200).send({qualifications});
+      }
+    }
+  });
+
+}
+
+function getQualificationsExamApproved(req, res){
+  var examId = req.params.qualification;
+
+
+  if(!examId ){
+    var find = Qualification.find({}).sort('qualification');
+  }else{
+    var find = Qualification.find({exam: examId}).sort('exam');
+  }
+
+  find.where('score').gte(2.9).populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!qualifications) {
+        res.status(404).send({message: 'No hay calificaciones'});
+      }else{
+        res.status(200).send({qualifications});
+      }
+    }
+  });
+
+}
+
+function getQualificationsExamReprobate(req, res){
+  var examId = req.params.qualification;
+
+
+  if(!examId ){
+    var find = Qualification.find({}).sort('qualification');
+  }else{
+    var find = Qualification.find({exam: examId}).sort('exam');
+  }
+
+  find.where('score').lte(3.0).populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!qualifications) {
+        res.status(404).send({message: 'No hay calificaciones'});
+      }else{
+        res.status(200).send({qualifications});
+      }
+    }
+  });
+
+}
+
 function getListQualifications(req, res){
   var find = Qualification.find({}).sort('qualification');
 
-  find.populate({path: 'qualification'}).exec((err, qualifications) => {
+  find.populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
     if (err) {
       res.status(500).send({message:' Error en la petición'});
     }else {
@@ -126,6 +195,9 @@ function deleteQualification(req, res){
 module.exports = {
   getQualification,
   getQualifications,
+  getQualificationsExam,
+  getQualificationsExamApproved,
+  getQualificationsExamReprobate,
   getListQualifications,
   saveQualification,
   updateQualification,

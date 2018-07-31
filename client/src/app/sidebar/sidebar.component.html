@@ -161,9 +161,9 @@
         </ul>
       </li>
       <li *ngIf="identity && identity.role == 'ROLE_ADMIN'">
-        <a href="index.html" target="_blank">
+        <a [routerLink]="['/calificaciones-admin']">
           <i class="entypo-monitor"></i>
-          <span class="title">Consulta Examen</span>
+          <span class="title">Consultar Examenes</span>
         </a>
       </li>
       <li class="has-sub" *ngIf="identity && identity.role == 'ROLE_USER'">
@@ -173,7 +173,7 @@
         </a>
         <ul>
           <li>
-            <a href="#">
+            <a [routerLink]="['/questionarios-usuario']">
               <span class="title">Examen Activos</span>
             </a>
           </li>
