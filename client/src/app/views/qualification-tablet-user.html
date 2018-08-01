@@ -1,0 +1,89 @@
+<div class="" *ngIf="identity">
+  <ol class="breadcrumb bc-3">
+    <li>
+      <a [routerLink]="['/']"><i class="fa fa-home"></i>Home</a>
+    </li>
+    <li class="active">
+
+      <strong>{{titulo}}</strong>
+    </li>
+  </ol>
+
+  <h2>{{titulo}}</h2>
+  <br />
+
+</div>
+<br />
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+          <ul class="nav nav-tabs bordered"><!-- available classes "bordered", "right-aligned" -->
+            <li class="active">
+              <a href="#home" data-toggle="tab">
+                <span class="visible-xs"><i class="entypo-home"></i></span>
+                <span class="hidden-xs">Mis Calificaciones</span>
+              </a>
+            </li>
+            <!--<li>
+              <a href="#settings" data-toggle="tab">
+                <span class="visible-xs"><i class="entypo-cog"></i></span>
+                <span class="hidden-xs">Settings</span>
+              </a>
+            </li>-->
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+              <table class="table table-bordered datatable" id="table-1">
+                <thead>
+                    <tr>
+                      <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                      <th class="text-center" data-hide="phone">Examen</th>
+                      <th class="text-center" ss="text-center" data-hide="phone">Usuario</th>
+                      <th class="text-center" data-hide="phone">Calificación</th>
+                      <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let qualification of qualifications" class="odd gradeX" style="color:#000;">
+                    <td class="text-center">{{qualification._id}}</td>
+                    <td class="text-center">{{qualification.exam.name}}</td>
+                    <td class="text-center">{{qualification.user.name | uppercase}} {{qualification.user.surname | uppercase}}</td>
+                    <td *ngIf="qualification.score > 2.9" class="text-center "><span class="label label-success" style=" width: 45px;">{{qualification.score | number : '1.1'}}</span></td>
+                    <td *ngIf="qualification.score < 3" class="text-center"><span class="label label-danger" style=" width: 45px;">{{qualification.score | number : '1.1'}}</span></td>
+                    <!--<td class="text-center">-->
+                        <!--<div class="btn-group btn-group-xs">
+                            <a [routerLink]="['/crear-respuesta', answer.question._id]" data-toggle="tooltip" title="Respuesta" class="btn btn-info"><i class="entypo-bookmark"></i></a>
+                            <a [routerLink]="['/editar-respuesta', answer._id]" data-toggle="tooltip" title="Editar" class="btn btn-default"><i class="entypo-pencil"></i></a>
+                            <a (click)="onDeleteConfirm(answer._id)" data-toggle="tooltip" title="Borrar" class="btn btn-danger"><i class="entypo-cancel"></i></a>
+                        </div>
+                        <div class="btn-group btn-group-xs seguro" *ngIf="confirmado == answer._id" style="  margin-left: -8px;margin-top: -44px;">
+                            <a (click)="onDeleteAnswer(answer._id)" data-toggle="tooltip" title="Eliminar" class="btn btn-danger"><i class="entypo-cancel"></i>Eliminar</a>
+                            <a (click)="onCancelAnswer()" data-toggle="tooltip" title="Cancelar" class="btn btn-default"><i class="entypo-cw">Cancelar</i></a>
+                        </div>-->
+                    <!--</td>-->
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th style="width: 150px;" class="text-center"><i class="entypo-gauge"></i></th>
+                    <th class="text-center" data-hide="phone">Examen</th>
+                    <th class="text-center" data-hide="phone">Usuario</th>
+                    <th class="text-center" data-hide="phone">Calificación</th>
+                    <!--<th style="width: 150px;" class="text-center">Actions</th>-->
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+      

@@ -25,11 +25,10 @@ function getQuestion(req, res){
 
 function getQuestionsForTheme(req, res){
   var themeId = req.params.question;
-  if (!themeId) {
-    var find = Question.find({}).sort('question');
-  }else{
-    var find = Question.find({theme: themeId}).sort('theme');
-  }
+  var id_theme = req.params.theme;
+
+    var find = Question.find({theme: themeId}).sort('theme').where('theme').equals(id_theme);
+
 
 
   find.populate({path: 'theme'}).exec((err, questions) => {

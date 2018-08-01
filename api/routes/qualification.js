@@ -7,7 +7,8 @@ var api = express.Router();
 var md_auth = require('../middlewares/authenticated');
 
 api.get('/qualification/:id', md_auth.ensureAuth, QualificationController.getQualification);
-api.get('/qualifications/:user?', md_auth.ensureAuth, QualificationController.getQualifications);
+api.get('/qualifications-user/:user?', md_auth.ensureAuth, QualificationController.getQualifications);
+api.get('/qualifications-user-exam/:user&&:exam', md_auth.ensureAuth, QualificationController.getQualificationUserTheme);
 api.get('/qualifications-exam/:exam?', md_auth.ensureAuth, QualificationController.getQualificationsExam);
 api.get('/qualifications-exam-approved/:exam?', md_auth.ensureAuth, QualificationController.getQualificationsExamApproved);
 api.get('/qualifications-exam-reprobate/:exam?', md_auth.ensureAuth, QualificationController.getQualificationsExamReprobate);

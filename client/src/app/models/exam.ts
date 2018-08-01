@@ -3,6 +3,7 @@ export class Exam{
     public name: string,
     public user: string,
     public cant: string,
-    public intent: string
+    public intent: string,
+    public theme: string
   ){}
 }

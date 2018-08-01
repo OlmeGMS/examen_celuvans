@@ -35,6 +35,10 @@ import { QuestionnaireDetailComponent } from './components/questionnaire-details
 
 //import qualification
 import { QualificationTableComponent } from './components/qualification-table-admin.component';
+import { QualificationTableUserComponent } from './components/qualification-table-user.component';
+
+//import mensaje
+import { MessageComponent } from './message/message.component';
 
 
 
@@ -59,6 +63,8 @@ const appRoutes: Routes = [
   {path: 'questionarios-usuario', component: QuestionnaireTableUserComponent },
   {path: 'questionario-detalle/:id', component: QuestionnaireDetailComponent},
   {path: 'calificaciones-admin', component: QualificationTableComponent},
+  {path: 'calificaciones-user/:id', component: QualificationTableUserComponent},
+  {path: 'mensaje', component: MessageComponent},
   {path: 'registro', component: RegisterComponent},
   {path: '**', component: HomeComponent}
 ];

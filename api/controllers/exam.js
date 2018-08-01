@@ -93,6 +93,7 @@ function saveExam(req, res) {
   exam.user = params.user;
   exam.cant = params.cant;
   exam.intent = params.intent;
+  exam.theme = params.theme;
 
   exam.save((err, examStored) => {
     if (err) {

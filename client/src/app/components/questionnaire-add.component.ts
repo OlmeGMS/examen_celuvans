@@ -26,6 +26,8 @@ export class QuestionnaireAddComponent implements OnInit {
   public answers: Answer[];
   public answer: Answer;
   public exams: Exam[];
+  public exam: Exam;
+  public examid: Exam;
   public questionnaire: Questionnaire;
   public identity;
   public token;
@@ -33,6 +35,7 @@ export class QuestionnaireAddComponent implements OnInit {
   public alertMessage;
   public id_exma = null;
   public preguntas = [];
+  public canQuestion;
 
   constructor(
     private _route: ActivatedRoute,
@@ -49,6 +52,9 @@ export class QuestionnaireAddComponent implements OnInit {
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
     this.questionnaire = new Questionnaire('','');
+    this.exam = new Exam('', '','', '', '');
+    this.canQuestion = null;
+    this.examid = null;
 
   }
 
@@ -128,58 +134,114 @@ selectionChange(input: HTMLInputElement) {
 
 
 
-  getQuestionsTheme(id_exma){
-    console.log(id_exma);
-    this.selectedDevice = id_exma;
-        this._questionService.getQuestionsTheme(this.token, id_exma).subscribe(
+  getQuestionsTheme(id_exam){
+    console.log(id_exam);
+    this._examService.getExam(this.token, id_exam).subscribe(
+      response => {
+        if (!response.exam) {
+          this._router.navigate(['/']);
+        } else {
 
-          response => {
-            if (!response.questions) {
-              this._router.navigate(['/']);
-            } else {
+          this.examid = response.exam;
+          var exam_theme = this.examid.theme;
 
-              this.questions = response.questions;
-              console.log(this.questions);
-            }
+              this._questionService.getQuestionsTheme(this.token, exam_theme).subscribe(
 
-          },
-          error => {
-            var errorMessage = <any>error;
-            if (errorMessage != null) {
-              var body = JSON.parse(error._body);
+                response => {
+                  if (!response.questions) {
+                    this._router.navigate(['/']);
+                  } else {
 
-              console.log(error);
-            }
+                    this.questions = response.questions;
+                    console.log(this.questions);
+                  }
 
-          }
-        );
+                },
+                error => {
+                  var errorMessage = <any>error;
+                  if (errorMessage != null) {
+                    var body = JSON.parse(error._body);
+
+                    console.log(error);
+                  }
+
+                }
+              );
+
+        }
+
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+
+          console.log(error);
+        }
+
+      }
+    );
+
 
   }
 
 
 
   onSubmit(){
-    console.log(this.questionnaire);
-
-    this._questionnaireService.addQuestionnaire(this.token, this.questionnaire).subscribe(
+    var seledExam = this.questionnaire.exam;
+    this._examService.getExam(this.token, seledExam).subscribe(
       response => {
-        if(!response.questionnaire){
-          this.alertMessage = "ERROR en el servidor";
-        }else{
-          this.alertMessage = '¡El cuestionario fue creado correctamente!';
-          this.questionnaire = response.questionnaire;
-        }
+          if(!response.exam){
+            this._router.navigate(['/']);
+          }else{
+            this.exam = response.exam;
 
+            this.canQuestion = this.exam.cant;
+            var exam_can = this.exam.cant;
+            var ques = this.questionnaire.question.length;
+            var pre = ques.toString();
+
+            if(pre == exam_can){
+              this._questionnaireService.addQuestionnaire(this.token, this.questionnaire).subscribe(
+                response => {
+                  if(!response.questionnaire){
+                    this.alertMessage = "ERROR en el servidor";
+                  }else{
+                    this.alertMessage = '¡El cuestionario fue creado correctamente!';
+                    this.questionnaire = response.questionnaire;
+                  }
+
+                },
+                error => {
+                  var errorMessage = <any>error;
+                  if(errorMessage != null){
+                    var body = JSON.parse(error._body);
+                    this.alertMessage = body.message;
+                    console.log(error);
+                }
+              }
+              );
+            }else{
+              this.alertMessage = '¡La cantidad de preguntas seleccionadas no coinciden con las registradas en el examen!';
+            }
+
+          }
       },
-      error => {
+      error =>{
         var errorMessage = <any>error;
         if(errorMessage != null){
           var body = JSON.parse(error._body);
           this.alertMessage = body.message;
           console.log(error);
+
       }
     }
     );
-    
+
+    console.log(this.exam.cant);
+
+
+
+
   }
 }

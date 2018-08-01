@@ -18,7 +18,7 @@ import { AppComponent } from '../app.component';
 @Component({
   selector: 'questionnaire-details',
   templateUrl: '../views/questionnaire-details.html',
-  providers: [UserService, QuestionService, AnswerService, ExamService, QuestionnaireService,  QualificationService ]
+  providers: [UserService, QuestionService, AnswerService, ExamService, QuestionnaireService, QualificationService]
 })
 
 export class QuestionnaireDetailComponent implements OnInit {
@@ -35,13 +35,14 @@ export class QuestionnaireDetailComponent implements OnInit {
   public url: string;
   public confirmado;
   public alertMessage;
-  public radioSel:any;
-  public radioSelected:string;
-  public radioSelectedString:string;
-  public radio:Array<any> ;
+  public radioSel: any;
+  public radioSelected: string;
+  public radioSelectedString: string;
+  public radio: Array<any>;
   public calificacion: number;
   public pru: Answer[] = [];
   public qualification: Qualification;
+  public info_qualification: Qualification;
   //public respuestas: Answer[];
 
 
@@ -59,9 +60,10 @@ export class QuestionnaireDetailComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
-    this.qualification = new Qualification('','',0,0);
+    this.qualification = new Qualification('', '', 0, 0);
+    this.info_qualification = null;
 
-        //Selecting Default Radio item here
+    //Selecting Default Radio item here
 
   }
 
@@ -72,7 +74,8 @@ export class QuestionnaireDetailComponent implements OnInit {
   }
 
   getQuestionnaire() {
-  this._route.params.forEach((params: Params) => {
+    //this._qualificationService.getQualificationUserTheme(this.token, this.)
+    this._route.params.forEach((params: Params) => {
       //let params: Params;
       let id = params['id'];
 
@@ -84,33 +87,72 @@ export class QuestionnaireDetailComponent implements OnInit {
             this.questionnaire = response.questionnaire;
             console.log(this.questionnaire = response.questionnaire);
 
-            //sacar las respuesta
+            var exam_id = this.questionnaire.exam._id;
+            var n_intentos = this.questionnaire.exam.intent;
+            var user_id = this.identity._id;
 
-            var d = this.questionnaire = response.questionnaire;
-            console.log('esto');
-            console.log(d);
-            var dq = d.question;
-            console.log('estoss');
-            console.log(dq);
-            var count_dqd = dq.length;
-            //var dqd = [0]._id;
-            console.log('didi');
-            //console.log(dqd);
-            console.log('yuyu');
-            console.log(count_dqd);
-            console.log('poi');
-            console.log(dq._id);
+            var intentos = n_intentos.toString();
 
 
+            console.log(exam_id);
+            console.log('intenetos');
+            console.log(n_intentos);
 
 
-        //    dq.forEach((element) => {
+            this._qualificationService.getQualificationUserTheme(this.token, user_id, exam_id).subscribe(
+              response => {
+                if (!response.qualifications) {
+                  console.log('naranjas');
+                } else {
+                  console.log(response.qualifications);
+                  var can_can = response.qualifications;
+                  var count_can_can = response.qualifications.length.toString();
+                  if (count_can_can < user_id) {
+
+                  } else {
+                    this._router.navigate(['/mensajes']);
+                  }
+
+                }
+              },
+              error => {
+                var errorMessage = <any>error;
+                if (errorMessage != null) {
+                  var body = JSON.parse(error._body);
+                  console.log(error);
+                }
+              }
+            );
+
+
+              // ii
+              //sacar las respuesta
+
+              var d = this.questionnaire = response.questionnaire;
+              console.log('esto');
+              console.log(d);
+              var dq = d.question;
+              console.log('estoss');
+              console.log(dq);
+              var count_dqd = dq.length;
+              //var dqd = [0]._id;
+              console.log('didi');
+              //console.log(dqd);
+              console.log('yuyu');
+              console.log(count_dqd);
+              console.log('poi');
+              console.log(dq._id);
+
+
+
+
+              //    dq.forEach((element) => {
               //console.log(element);
               console.log('o');
               //console.log(element._id);
               console.log(dq);
 
-            //  var id_question = element._id;
+              //  var id_question = element._id;
               var ttw = null;
               var ttww = null;
 
@@ -145,8 +187,9 @@ export class QuestionnaireDetailComponent implements OnInit {
 
                 }
               );
-            //  this.answers = null;
-          //  });
+              //  this.answers = null;
+              //  });
+              // end ii
 
 
 
@@ -169,111 +212,112 @@ export class QuestionnaireDetailComponent implements OnInit {
           }
         }
       );
-  });
-}
 
-getAnswers(question){
-
-  let id_question = question;
-
-  this._answerService.getAnswers(this.token, id_question).subscribe(
-
-    response => {
-      if (!response.answers) {
-        this._router.navigate(['/']);
-      } else {
-        //this.alertMessage = '¡La pregunta fue creada correctamente!';
-        this.answers = response.answers;
-        console.log(this.answers);
-      }
-
-    },
-    error => {
-      var errorMessage = <any>error;
-      if (errorMessage != null) {
-        var body = JSON.parse(error._body);
-        //this.alertMessage = body.message;
-        console.log(error);
-      }
-
-    }
-  );
-
-
-}
-
-onSelectionChange(entry) {
-        //this.questionnaire = entry;
-
-        //console.log(entry);
-        this.pru.push(entry);
-
-
-        this.radio = entry;
-
-
-
-        console.log(this.pru);
-        //console.log(this.radio);
-
-
-    }
-
-radioFun(entry){
-  console.log('trelo');
-  console.log('trelo');
-}
-onSubmit() {
-console.log(this.questionnaire);
-var count_pru = this.pru.length;
-console.log(count_pru);
-var calif = 0;
-var nota = 0;
-var yu  = null;
-for (var i = 0; i < count_pru; i++) {
-  yu = this.pru[i];
-  if(yu === true){
-    calif = calif + 5;
+    });
   }
 
-}
-nota = calif/count_pru;
-console.log(nota);
+  getAnswers(question) {
 
-var id_user = this.identity._id;
-console.log(id_user);
-this.qualification.exam = this.questionnaire.exam;
-this.qualification.user = id_user;
+    let id_question = question;
 
-this.qualification.score = nota;
-this.qualification.intent = 1;
-console.log(this.qualification);
-console.log(this.identity);
-console.log(this.identity._id);
+    this._answerService.getAnswers(this.token, id_question).subscribe(
 
-this._qualificationService.addQualification(this.token, this.qualification).subscribe(
-  response => {
-    if(!response.qualification){
-      this.alertMessage = "Error en el servidor";
-    }else{
-      this.alertMessage = '¡La respuesta fue creada correctamente!';
-      this._router.navigate(['/']);
+      response => {
+        if (!response.answers) {
+          this._router.navigate(['/']);
+        } else {
+          //this.alertMessage = '¡La pregunta fue creada correctamente!';
+          this.answers = response.answers;
+          console.log(this.answers);
+        }
 
-    }
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          //this.alertMessage = body.message;
+          console.log(error);
+        }
 
-  },
-  error => {
-    var errorMessage = <any>error;
-    if(errorMessage != null){
-      var body = JSON.parse(error._body);
-      this.alertMessage = body.message;
-      console.log(error);
-    }
+      }
+    );
+
+
   }
-);
+
+  onSelectionChange(entry) {
+    //this.questionnaire = entry;
+
+    //console.log(entry);
+    this.pru.push(entry);
+
+
+    this.radio = entry;
+
+
+
+    console.log(this.pru);
+    //console.log(this.radio);
+
+
+  }
+
+  radioFun(entry) {
+    console.log('trelo');
+    console.log('trelo');
+  }
+  onSubmit() {
+    console.log(this.questionnaire);
+    var count_pru = this.pru.length;
+    console.log(count_pru);
+    var calif = 0;
+    var nota = 0;
+    var yu = null;
+    for (var i = 0; i < count_pru; i++) {
+      yu = this.pru[i];
+      if (yu === true) {
+        calif = calif + 5;
+      }
+
+    }
+    nota = calif / count_pru;
+    console.log(nota);
+
+    var id_user = this.identity._id;
+    console.log(id_user);
+    this.qualification.exam = this.questionnaire.exam;
+    this.qualification.user = id_user;
+
+    this.qualification.score = nota;
+    this.qualification.intent = 1;
+    console.log(this.qualification);
+    console.log(this.identity);
+    console.log(this.identity._id);
+
+    this._qualificationService.addQualification(this.token, this.qualification).subscribe(
+      response => {
+        if (!response.qualification) {
+          this.alertMessage = "Error en el servidor";
+        } else {
+          this.alertMessage = '¡La respuesta fue creada correctamente!';
+          this._router.navigate(['/mensaje']);
+
+        }
+
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          this.alertMessage = body.message;
+          console.log(error);
+        }
+      }
+    );
 
 
 
 
-}
+  }
 }

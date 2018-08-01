@@ -29,6 +29,8 @@ import { QuestionnaireTableComponent } from './components/questionnaire-table.co
 import { QuestionnaireTableUserComponent } from './components/questionnaire-table-user.component';
 import { QuestionnaireDetailComponent } from './components/questionnaire-details.component';
 import { QualificationTableComponent } from './components/qualification-table-admin.component';
+import { QualificationTableUserComponent } from './components/qualification-table-user.component';
+import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { QualificationTableComponent } from './components/qualification-table-ad
     QuestionnaireTableComponent,
     QuestionnaireTableUserComponent,
     QuestionnaireDetailComponent,
-    QualificationTableComponent
+    QualificationTableComponent,
+    QualificationTableUserComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

@@ -167,7 +167,7 @@
         </a>
       </li>
       <li class="has-sub" *ngIf="identity && identity.role == 'ROLE_USER'">
-        <a href="#">
+        <a href="index.html">
           <i class="entypo-layout"></i>
           <span class="title">Examenes</span>
         </a>
@@ -178,7 +178,7 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a [routerLink]="['/calificaciones-user', this.identity._id]">
               <span class="title">Consultar Notas</span>
             </a>
           </li>

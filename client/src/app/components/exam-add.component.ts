@@ -5,8 +5,10 @@ import { GLOBAL } from '../services/global';
 import { UserService } from '../services/user.service';
 import { QuestionService } from '../services/question.service';
 import { AnswerService } from '../services/answer.service';
+import { ThemeService } from '../services/theme.service';
 import { ExamService } from '../services/exam.service';
 import { Question } from '../models/question';
+import { Theme } from '../models/theme';
 import { Answer } from '../models/answer';
 import { Exam } from '../models/exam';
 import { AppComponent } from '../app.component';
@@ -14,7 +16,7 @@ import { AppComponent } from '../app.component';
 @Component({
   selector: 'exam-add',
   templateUrl: '../views/exam-add.html',
-  providers: [UserService, QuestionService, AnswerService, ExamService]
+  providers: [UserService, QuestionService, AnswerService, ThemeService, ExamService]
 })
 
 export class ExamAddComponent implements OnInit {
@@ -23,6 +25,7 @@ export class ExamAddComponent implements OnInit {
   public question: Question;
   public questions: Question[];
   public answer: Answer;
+  public themes: Theme[];
   public exam: Exam;
   public identity;
   public token;
@@ -37,18 +40,19 @@ export class ExamAddComponent implements OnInit {
     private _userService: UserService,
     private _questionService: QuestionService,
     private _answerService: AnswerService,
+    private _themeService: ThemeService,
     private _examService: ExamService
   ) {
     this.titulo = 'Crear Examen';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
-    this.exam = new Exam('', '', '', '');
+    this.exam = new Exam('', '', '', '', '');
   }
 
   ngOnInit() {
     console.log('cargando el componente de exam-add.component.ts');
-    //this.getQuestionsList();
+    this.getListThemes();
   }
 /*
   getQuestionsList() {
@@ -81,6 +85,33 @@ export class ExamAddComponent implements OnInit {
 
   }
   */
+
+  getListThemes(){
+
+    this._themeService.getThemeList(this.token).subscribe(
+
+      response => {
+        if (!response.themes) {
+          this._router.navigate(['/']);
+        } else {
+          //this.alertMessage = '¡La pregunta fue creada correctamente!';
+          this.themes = response.themes;
+          console.log(this.themes);
+        }
+
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          //this.alertMessage = body.message;
+          console.log(error);
+        }
+
+      }
+    );
+
+  }
 
   onSubmit() {
     this._route.params.forEach((params: Params) => {

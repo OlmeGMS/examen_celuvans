@@ -25,18 +25,19 @@ function getQualification(req, res){
 
 function getQualifications(req, res){
   var userId = req.params.qualification;
+  var t = req.params.user;
 
   if(!userId){
-    var find = Qualification.find({}).sort('qualification');
+  var find = Qualification.find({}).sort('qualification').where('user').equals(t);
   }else {
-    var find = Qualification.find({user: userId}).sort('user');
+    var find = Qualification.find({user: userId}).sort('user').where('user').equals(t);
   }
 
   find.populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
     if (err) {
       res.status(500).send({message: 'Error en la petición'});
     }else {
-      if (!qualification) {
+      if (!qualifications) {
         res.status(404).send({message: 'No hay calificaciones'});
       }else{
         res.status(200).send({qualifications});
@@ -47,10 +48,28 @@ function getQualifications(req, res){
 
 }
 
+function getQualificationUserTheme(req, res){
+  var userId = req.params.qualification;
+  var user_id = req.params.user;
+  var exam_id = req.params.exam;
+
+  var find = Qualification.find({user: userId}).sort('user').where('user').equals( user_id).where('exam').equals(exam_id);
+  find.populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
+    if (err) {
+      res.status(500).send({message: 'Error en la petición'});
+    }else {
+      if (!qualifications) {
+        res.status(404).send({message: 'No hay calificaciones'});
+      }else{
+        res.status(200).send({qualifications});
+      }
+    }
+  });
+}
+
 function getQualificationsExam(req, res){
   var examId = req.params.qualification;
-
-
+  console.log(examId);
   if(!examId ){
     var find = Qualification.find({}).sort('qualification');
   }else{
@@ -195,6 +214,7 @@ function deleteQualification(req, res){
 module.exports = {
   getQualification,
   getQualifications,
+  getQualificationUserTheme,
   getQualificationsExam,
   getQualificationsExamApproved,
   getQualificationsExamReprobate,

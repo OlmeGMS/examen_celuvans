@@ -25,7 +25,22 @@ export class QualificationService {
       return this._http.get(this.url + '', options)
         .map(res => res.json());
     } else {
-      return this._http.get(this.url + 'qualifications/' + userId, options)
+      return this._http.get(this.url + 'qualifications-user/' + userId, options)
+        .map(res => res.json());
+    }
+  }
+
+  getQualificationUserTheme(token, userId = null, examId = null){
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    });
+    let options = new RequestOptions({ headers: headers });
+    if (userId == null) {
+      return this._http.get(this.url + '', options)
+        .map(res => res.json());
+    } else {
+      return this._http.get(this.url + 'qualifications-user-exam/' + userId+'&&'+ examId, options)
         .map(res => res.json());
     }
   }

@@ -7,7 +7,8 @@ var ExamSchema = Schema({
   name: String,
   user: {type: Schema.ObjectId, ref: 'User'},
   cant: String,
-  intent: String
+  intent: String,
+  theme : { type: Schema.ObjectId, ref: 'Theme'}
 });
 
 module.exports = mongoose.model('Exam', ExamSchema);

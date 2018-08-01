@@ -12,7 +12,7 @@
   <h2>{{titulo}}</h2>
   <br />
 
-  <a [routerLink]="['/crear-examen', this.identity._id]" *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn btn-default"> Añadir Nuevo Examen</a>
+  <a [routerLink]="['/crear-cuestionario']" *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn btn-default"> Añadir Nuevo Cuestionario</a>
 </div>
 <br />
 <!--<div class="clearfix"></div>-->

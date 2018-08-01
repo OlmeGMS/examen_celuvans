@@ -4,15 +4,17 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { GLOBAL } from '../services/global';
 import { UserService } from '../services/user.service';
 import { ExamService } from '../services/exam.service';
+import { ThemeService } from '../services/theme.service';
 import { Question } from '../models/question';
 import { Answer } from '../models/answer';
+import { Theme } from '../models/theme';
 import { Exam } from '../models/exam';
 import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'exam-edit',
   templateUrl: '../views/exam-add.html',
-  providers: [UserService, ExamService]
+  providers: [UserService, ExamService, ThemeService]
 })
 
 export class ExamEditComponent implements OnInit {
@@ -20,6 +22,7 @@ export class ExamEditComponent implements OnInit {
   public titulo: string;
   public question: Question;
   public answer: Answer;
+  public themes: Theme[];
   public exam: Exam;
   public identity;
   public token;
@@ -33,18 +36,20 @@ export class ExamEditComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
+    private _themeService: ThemeService,
     private _examService: ExamService
   ) {
     this.titulo = 'Editar examen';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = GLOBAL.url;
-    this.exam = new Exam('', '','', '');
+    this.exam = new Exam('', '','', '', '');
   }
 
   ngOnInit() {
     console.log('cargando el componente de exam-edit.component.ts');
     //Consegir la respuesta
+    this.getListThemes();
     this.getExam();
 
   }
@@ -72,7 +77,32 @@ export class ExamEditComponent implements OnInit {
        );
     });
   }
+  getListThemes(){
 
+    this._themeService.getThemeList(this.token).subscribe(
+
+      response => {
+        if (!response.themes) {
+          this._router.navigate(['/']);
+        } else {
+          //this.alertMessage = '¡La pregunta fue creada correctamente!';
+          this.themes = response.themes;
+          console.log(this.themes);
+        }
+
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);
+          //this.alertMessage = body.message;
+          console.log(error);
+        }
+
+      }
+    );
+
+  }
   onSubmit(){
     this._route.params.forEach((params: Params) => {
       let id = params['id'];
