@@ -87,8 +87,10 @@ export class QuestionnaireDetailComponent implements OnInit {
             this.questionnaire = response.questionnaire;
             console.log(this.questionnaire = response.questionnaire);
 
-            var exam_id = this.questionnaire.exam._id;
-            var n_intentos = this.questionnaire.exam.intent;
+            var exam_id = response.questionnaire.exam._id;
+
+            var n_intentos = response.questionnaire.exam.intent;
+
             var user_id = this.identity._id;
 
             var intentos = n_intentos.toString();
@@ -106,12 +108,11 @@ export class QuestionnaireDetailComponent implements OnInit {
                 } else {
                   console.log(response.qualifications);
                   var can_can = response.qualifications;
+                  console.log(can_can);
                   var count_can_can = response.qualifications.length.toString();
-                  if (count_can_can < user_id) {
-
-                  } else {
-                    this._router.navigate(['/mensajes']);
-                  }
+                  if (count_can_can > n_intentos) {
+                    this._router.navigate(['full-intentos']);
+                  } 
 
                 }
               },

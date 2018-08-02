@@ -31,6 +31,7 @@ import { QuestionnaireDetailComponent } from './components/questionnaire-details
 import { QualificationTableComponent } from './components/qualification-table-admin.component';
 import { QualificationTableUserComponent } from './components/qualification-table-user.component';
 import { MessageComponent } from './message/message.component';
+import { FullintentsComponent } from './fullintents/fullintents.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { MessageComponent } from './message/message.component';
     QuestionnaireDetailComponent,
     QualificationTableComponent,
     QualificationTableUserComponent,
-    MessageComponent
+    MessageComponent,
+    FullintentsComponent
   ],
   imports: [
     BrowserModule,

@@ -39,6 +39,7 @@ import { QualificationTableUserComponent } from './components/qualification-tabl
 
 //import mensaje
 import { MessageComponent } from './message/message.component';
+import { FullintentsComponent } from './fullintents/fullintents.component';
 
 
 
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
   {path: 'calificaciones-admin', component: QualificationTableComponent},
   {path: 'calificaciones-user/:id', component: QualificationTableUserComponent},
   {path: 'mensaje', component: MessageComponent},
+  {path: 'full-intentos', component: FullintentsComponent},
   {path: 'registro', component: RegisterComponent},
   {path: '**', component: HomeComponent}
 ];
