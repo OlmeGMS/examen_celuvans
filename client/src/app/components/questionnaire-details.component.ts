@@ -110,9 +110,9 @@ export class QuestionnaireDetailComponent implements OnInit {
                   var can_can = response.qualifications;
                   console.log(can_can);
                   var count_can_can = response.qualifications.length.toString();
-                  if (count_can_can > n_intentos) {
+                  if (count_can_can >= n_intentos) {
                     this._router.navigate(['full-intentos']);
-                  } 
+                  }
 
                 }
               },

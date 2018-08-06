@@ -69,11 +69,12 @@ function getQualificationUserTheme(req, res){
 
 function getQualificationsExam(req, res){
   var examId = req.params.qualification;
-  console.log(examId);
+  var id_exam_id = req.params.exam;
+
   if(!examId ){
-    var find = Qualification.find({}).sort('qualification');
+    var find = Qualification.find({}).sort('qualification').where('exam').equals(id_exam_id);
   }else{
-    var find = Qualification.find({exam: examId}).sort('exam');
+    var find = Qualification.find({exam: examId}).sort('exam').where('exam').equals(id_exam_id);
   }
 
   find.populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
@@ -92,12 +93,13 @@ function getQualificationsExam(req, res){
 
 function getQualificationsExamApproved(req, res){
   var examId = req.params.qualification;
+  var id_exam_id = req.params.exam;
 
 
   if(!examId ){
-    var find = Qualification.find({}).sort('qualification');
+    var find = Qualification.find({}).sort('qualification').where('exam').equals(id_exam_id);
   }else{
-    var find = Qualification.find({exam: examId}).sort('exam');
+    var find = Qualification.find({exam: examId}).sort('exam').where('exam').equals(id_exam_id);
   }
 
   find.where('score').gte(2.9).populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
@@ -116,12 +118,13 @@ function getQualificationsExamApproved(req, res){
 
 function getQualificationsExamReprobate(req, res){
   var examId = req.params.qualification;
+  var id_exam_id = req.params.exam;
 
 
   if(!examId ){
-    var find = Qualification.find({}).sort('qualification');
+    var find = Qualification.find({}).sort('qualification').where('exam').equals(id_exam_id);
   }else{
-    var find = Qualification.find({exam: examId}).sort('exam');
+    var find = Qualification.find({exam: examId}).sort('exam').where('exam').equals(id_exam_id);
   }
 
   find.where('score').lte(3.0).populate({path: 'qualification'}).populate({path: 'exam'}).populate({path: 'user'}).exec((err, qualifications) => {
